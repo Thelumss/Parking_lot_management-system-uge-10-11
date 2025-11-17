@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Parking_lot_management_system_uge_10_11.Models;
 
 namespace Parking_lot_management_system_uge_10_11.Controllers
 {
