@@ -13,7 +13,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
         public DateTime? Entry_time { get; set; }
         public DateTime? Exit_time { get; set; }
 
-        public float Charged { get; set; }
+        public float? Charged { get; set; }
 
         public int Lot_ID { get; set; }
         [ForeignKey("Lot_ID")]
