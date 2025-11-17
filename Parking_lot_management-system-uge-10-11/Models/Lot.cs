@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parking_lot_management_system_uge_10_11.Models
 {
     public class Lot
     {
-
+        [Key]
         public int LotID { get; set; }
 
         public bool Occupied_Status { get; set; }

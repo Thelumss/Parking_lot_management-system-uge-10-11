@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parking_lot_management_system_uge_10_11.Models
 {
     public class Users
     {
 
-        public int Userid { get; set; }
+        [Key]
+        public int UserID { get; set; }
 
         public string Name { get; set; }
 
