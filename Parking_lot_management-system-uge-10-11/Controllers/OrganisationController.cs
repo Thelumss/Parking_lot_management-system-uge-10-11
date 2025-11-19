@@ -76,20 +76,20 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             return Ok("organisation Successfully Updated");
         }
 
-        [HttpDelete("/Organisation/delete{Organisationid}")]
+        [HttpDelete("/Organisation/delete{Id}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteOrganisation(int organisationid)
+        public IActionResult DeleteLottypes(int Id)
         {
-            if (!organisationRepository.OrganisationExist(organisationid))
+            if (!organisationRepository.OrganisationExist(Id))
             {
                 return NotFound();
             }
 
-            var organisationToDelete = organisationRepository.GetOrganisation(organisationid);
+            var userToDelete = organisationRepository.GetOrganisation(Id);
 
-            if (!organisationRepository.DeleteOrganisation(organisationToDelete))
+            if (!organisationRepository.DeleteOrganisation(userToDelete))
             {
                 ModelState.AddModelError("", "Something went wrong deleting organisation");
             }
