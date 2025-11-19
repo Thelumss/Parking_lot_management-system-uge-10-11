@@ -21,6 +21,8 @@ namespace Parking_lot_management_system_uge_10_11
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
             builder.Services.AddScoped<ILotTypesRepository, LotTypesRepository>();
+            builder.Services.AddScoped<IOrganisationRepository, OrganisationRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddSwaggerGen(opt =>
             {
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
