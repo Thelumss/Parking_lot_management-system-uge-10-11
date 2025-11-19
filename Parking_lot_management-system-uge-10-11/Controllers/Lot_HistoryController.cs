@@ -50,7 +50,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpPost("/lot_History/post")]
+        [HttpPost("/lot_History/CreateLot_History")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateLot_History([FromBody] Lot_History lot_History)
@@ -81,7 +81,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/lot_History/put")]
+        [HttpPut("/lot_History/UpdateLot_History")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateLot_History([FromBody] Lot_History lot_History)

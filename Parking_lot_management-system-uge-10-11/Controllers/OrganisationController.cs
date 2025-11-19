@@ -31,7 +31,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpPost("/Organisation/post")]
+        [HttpPost("/Organisation/CreateOrganisations")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateOrganisations([FromBody] Organisation organisation)
@@ -61,7 +61,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             return Ok("Successfully created");
         }
 
-        [HttpPut("/Organisation/put")]
+        [HttpPut("/Organisation/UpdateOrganisation")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateOrganisation([FromBody] Organisation organisation)

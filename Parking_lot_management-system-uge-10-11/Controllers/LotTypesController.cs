@@ -31,7 +31,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpPost("/Lottypes/post")]
+        [HttpPost("/Lottypes/CreateLotTypes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateLotTypes([FromBody] Lot_types lot_Types)
@@ -62,7 +62,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/Lottypes/put")]
+        [HttpPut("/Lottypes/UpdateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateUserTypes([FromBody] Lot_types lot_Types)

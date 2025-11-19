@@ -50,7 +50,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpPost("/parking_Lot_Structur/post")]
+        [HttpPost("/parking_Lot_Structur/CreateParking_Lot_Structur")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)
@@ -81,7 +81,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/parking_Lot_Structur/put")]
+        [HttpPut("/parking_Lot_Structur/UpdateParking_Lot_Structur")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)

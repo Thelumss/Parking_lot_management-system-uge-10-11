@@ -69,7 +69,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         }
 
 
-        [HttpPost("/User/post")]
+        [HttpPost("/User/CreateUser")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateUser([FromBody] Users users)
@@ -100,7 +100,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/User/put")]
+        [HttpPut("/User/UpdateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateUserTypes([FromBody] Users users)

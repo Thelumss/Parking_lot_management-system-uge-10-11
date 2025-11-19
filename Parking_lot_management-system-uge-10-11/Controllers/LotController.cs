@@ -158,7 +158,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpPost("/Lot/post")]
+        [HttpPost("/Lot/CreateLot")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public IActionResult CreateLot([FromBody] Lot lot)
@@ -189,7 +189,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/Lot/put")]
+        [HttpPut("/Lot/UpdateLot")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateLot([FromBody] Lot lot)

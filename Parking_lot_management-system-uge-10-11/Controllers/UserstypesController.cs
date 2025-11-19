@@ -34,7 +34,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPost("/UserTypes/post")]
+        [HttpPost("/UserTypes/CreateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult CreateUserTypes([FromBody] User_Types user_Types)
@@ -64,7 +64,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             return Ok("Successfully created");
         }
 
-        [HttpPut("/UserTypes/put")]
+        [HttpPut("/UserTypes/UpdateUsertypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public IActionResult UpdateUsertypes([FromBody] User_Types user_TypesUpdate)
