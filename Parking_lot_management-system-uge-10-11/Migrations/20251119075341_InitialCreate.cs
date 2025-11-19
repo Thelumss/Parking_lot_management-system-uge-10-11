@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -138,9 +137,9 @@ namespace Parking_lot_management_system_uge_10_11.Migrations
                     Lot_History_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     License_PLate_Numbers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Entry_time = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Exit_time = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Charged = table.Column<float>(type: "real", nullable: false),
+                    Entry_time = table.Column<long>(type: "bigint", nullable: true),
+                    Exit_time = table.Column<long>(type: "bigint", nullable: true),
+                    Charged = table.Column<float>(type: "real", nullable: true),
                     Lot_ID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

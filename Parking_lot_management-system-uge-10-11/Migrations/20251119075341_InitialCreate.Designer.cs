@@ -12,7 +12,7 @@ using Parking_lot_management_system_uge_10_11.Data;
 namespace Parking_lot_management_system_uge_10_11.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251117114729_InitialCreate")]
+    [Migration("20251119075341_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -59,14 +59,14 @@ namespace Parking_lot_management_system_uge_10_11.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Lot_History_ID"));
 
-                    b.Property<float>("Charged")
+                    b.Property<float?>("Charged")
                         .HasColumnType("real");
 
-                    b.Property<DateTime?>("Entry_time")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("Entry_time")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("Exit_time")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("Exit_time")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("License_PLate_Numbers")
                         .IsRequired()

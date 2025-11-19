@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Parking_lot_management_system_uge_10_11.Data;
+using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
+using Parking_lot_management_system_uge_10_11.Repository;
 
 namespace Parking_lot_management_system_uge_10_11
 {
@@ -17,6 +19,8 @@ namespace Parking_lot_management_system_uge_10_11
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
+            builder.Services.AddScoped<ILotTypesRepository, LotTypesRepository>();
             builder.Services.AddSwaggerGen(opt =>
             {
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

@@ -59,11 +59,11 @@ namespace Parking_lot_management_system_uge_10_11.Migrations
                     b.Property<float?>("Charged")
                         .HasColumnType("real");
 
-                    b.Property<DateTime?>("Entry_time")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("Entry_time")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("Exit_time")
-                        .HasColumnType("datetime2");
+                    b.Property<long?>("Exit_time")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("License_PLate_Numbers")
                         .IsRequired()

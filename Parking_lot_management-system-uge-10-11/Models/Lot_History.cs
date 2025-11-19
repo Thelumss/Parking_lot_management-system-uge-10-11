@@ -10,8 +10,8 @@ namespace Parking_lot_management_system_uge_10_11.Models
 
         public string License_PLate_Numbers { get; set; }
 
-        public DateTime? Entry_time { get; set; }
-        public DateTime? Exit_time { get; set; }
+        public long? Entry_time { get; set; }
+        public long? Exit_time { get; set; }
 
         public float? Charged { get; set; }
 
