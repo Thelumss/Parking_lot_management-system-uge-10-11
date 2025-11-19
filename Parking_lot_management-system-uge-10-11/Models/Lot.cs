@@ -8,7 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
     {
         [Key]
         public int LotID { get; set; }
-
+        public string LotName { get; set; }
         public bool Occupied_Status { get; set; }
 
         public int Structur_ID { get; set; }

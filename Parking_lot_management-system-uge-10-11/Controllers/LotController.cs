@@ -68,7 +68,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("Lot/byLotTypeAndbyparking_Lot_Structur/{lotTypeId}/{parking_Lot_StructurId}")]
+        [HttpGet("Lot/GetLotsbyLotTypeAndparking_Lot_Structur/{lotTypeId}/{parking_Lot_StructurId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
         [ProducesResponseType(400)]
         public IActionResult GetLotsbyLotTypeAndparking_Lot_Structur(int lotTypeId, int parking_Lot_StructurId)
@@ -86,13 +86,67 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("Lot/byLotTypeAndbyparking_Lot_Structur/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}")]
+        [HttpGet("Lot/GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
         [ProducesResponseType(400)]
         public IActionResult GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status)
         {
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(parking_Lot_StructurId, lotTypeId, occupied_Status);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(lot);
+            }
+        }
+
+        [HttpGet("Lot/GetLotByparking_Lot_StructurIdAndLotName/{parking_Lot_StructurId}/{lotName}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetLotByparking_Lot_StructurIdAndLotName(int parking_Lot_StructurId, string lotName)
+        {
+
+            var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLotName(parking_Lot_StructurId, lotName);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(lot);
+            }
+        }
+
+        [HttpGet("Lot/GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}/{lotName}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName(int lotTypeId, int parking_Lot_StructurId, string lotName)
+        {
+
+            var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName(parking_Lot_StructurId, lotTypeId, lotName);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(lot);
+            }
+        }
+
+        [HttpGet("Lot/GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}/{lotName}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status, string lotName)
+        {
+
+            var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(parking_Lot_StructurId, lotTypeId, occupied_Status, lotName);
 
             if (!ModelState.IsValid)
             {

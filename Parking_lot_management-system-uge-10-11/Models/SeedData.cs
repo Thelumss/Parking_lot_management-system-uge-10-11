@@ -168,28 +168,31 @@ namespace Parking_lot_management_system_uge_10_11.Models
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structRosegarden,
+                                LotName = Convert.ToString(i+1),
                                 Lot_types_ID = typeStandard,
                                 Occupied_Status = false
                             });
                         }
 
                         // Rosegarden – EV
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 175; i < 180; i++)
                         {
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structRosegarden,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeEV,
                                 Occupied_Status = false
                             });
                         }
 
                         // Rosegarden – handicapped
-                        for (int i = 0; i < 20; i++)
+                        for (int i = 180; i < 200; i++)
                         {
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structRosegarden,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeHandicap,
                                 Occupied_Status = false
                             });
@@ -201,28 +204,31 @@ namespace Parking_lot_management_system_uge_10_11.Models
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structGarageA,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeStandard,
                                 Occupied_Status = false
                             });
                         }
 
                         // Garage A – EV
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 75; i < 80; i++)
                         {
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structGarageA,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeEV,
                                 Occupied_Status = false
                             });
                         }
 
                         // Garage A – handicapped
-                        for (int i = 0; i < 20; i++)
+                        for (int i = 80; i < 100; i++)
                         {
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structGarageA,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeHandicap,
                                 Occupied_Status = false
                             });
@@ -234,17 +240,19 @@ namespace Parking_lot_management_system_uge_10_11.Models
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structGarageB,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeStandard,
                                 Occupied_Status = false
                             });
                         }
 
                         // Garage B – handicapped
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 45; i < 50; i++)
                         {
                             context.lots.Add(new Lot
                             {
                                 Structur_ID = structGarageB,
+                                LotName = Convert.ToString(i + 1),
                                 Lot_types_ID = typeHandicap,
                                 Occupied_Status = false
                             });

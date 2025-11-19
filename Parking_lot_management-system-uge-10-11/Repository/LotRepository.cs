@@ -43,14 +43,29 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return context.lots.Where(x => x.Structur_ID == parking_Lot_StructurID).ToList();
         }
 
+        public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLotName(int parking_Lot_StructurID, string lotName)
+        {
+            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.LotName == lotName)).ToList();
+        }
+
         public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeID(int parking_Lot_StructurID, int lottypeID)
         {
             return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID)).ToList();
         }
 
+        public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName(int parking_Lot_StructurID, int lottypeID, string lotName)
+        {
+            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.LotName == lotName)).ToList();
+        }
+
         public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(int parking_Lot_StructurID, int lottypeID, bool occupie_status)
         {
             return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.Occupied_Status == occupie_status)).ToList();
+        }
+
+        public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(int parking_Lot_StructurID, int lottypeID, bool occupie_status, string lotName)
+        {
+            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.Occupied_Status == occupie_status)&&(x.LotName ==lotName)).ToList();
         }
 
         public bool LotsExist(int id)
