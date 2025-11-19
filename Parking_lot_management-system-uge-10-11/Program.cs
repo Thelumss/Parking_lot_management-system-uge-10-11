@@ -19,8 +19,12 @@ namespace Parking_lot_management_system_uge_10_11
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
+            // interface and repositry that are used
             builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
             builder.Services.AddScoped<ILotTypesRepository, LotTypesRepository>();
+            builder.Services.AddScoped<IOrganisationRepository, OrganisationRepository>();
+            
             builder.Services.AddSwaggerGen(opt =>
             {
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
