@@ -18,7 +18,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/parking_Lot_Structur/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
-        public IActionResult GetAllLotTypes()
+        public IActionResult GetAllParking_Lot_Structur()
         {
             var parking_Lot_Structur = parking_Lot_StructursRepository.GetAllparking_Lot_Structur();
 
@@ -33,9 +33,9 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         }
 
         [HttpGet("/parking_Lot_Structur/byOrganisation{OrganisationID}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
         [ProducesResponseType(400)]
-        public IActionResult getCerealbyOrganisation(int OrganisationID)
+        public IActionResult GetParking_Lot_StructurbyOrganisation(int OrganisationID)
         {
 
             var parking_Lot_Structur = parking_Lot_StructursRepository.Getparking_Lot_StructurByOrganisationId(OrganisationID);
@@ -53,7 +53,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/parking_Lot_Structur/post")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult CreateUser([FromBody] Parking_Lot_Structur parking)
+        public IActionResult CreateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)
         {
             if (parking == null)
             {
@@ -84,7 +84,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/parking_Lot_Structur/put")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateUserTypes([FromBody] Parking_Lot_Structur parking)
+        public IActionResult UpdateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)
         {
             if (!parking_Lot_StructursRepository.parking_Lot_StructurExist(parking.Parking_lot_Structur_ID))
             {
@@ -100,7 +100,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteLottypes(int parking_Lot_StructurID)
+        public IActionResult DeleteParking_Lot_Structur(int parking_Lot_StructurID)
         {
             if (!parking_Lot_StructursRepository.parking_Lot_StructurExist(parking_Lot_StructurID))
             {

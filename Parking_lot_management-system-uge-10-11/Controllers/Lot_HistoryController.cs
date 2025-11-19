@@ -18,9 +18,9 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/lot_History/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
-        public IActionResult GetAllLotTypes()
+        public IActionResult GetAllLot_History()
         {
-            var lot_history = lot_HistoryRepostiory.GetAllUsers();
+            var lot_history = lot_HistoryRepostiory.GetAllLot_Historys();
 
             if (!ModelState.IsValid)
             {
@@ -35,10 +35,10 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/lot_History/License_plate{License_plate}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
         [ProducesResponseType(400)]
-        public IActionResult getCerealbyOrganisation(string License_plate)
+        public IActionResult getLot_HistorybyLicensePlate(string License_plate)
         {
 
-            var lot_history = lot_HistoryRepostiory.GetLotByparking_Lot_StructurIdAndLottypeID(License_plate);
+            var lot_history = lot_HistoryRepostiory.GetLot_HistoryByLicence_plate(License_plate);
 
             if (!ModelState.IsValid)
             {
@@ -53,14 +53,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/lot_History/post")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult CreateUser([FromBody] Lot_History lot_History)
+        public IActionResult CreateLot_History([FromBody] Lot_History lot_History)
         {
             if (lot_History == null)
             {
                 return BadRequest(ModelState);
             }
 
-            if (lot_HistoryRepostiory.UsersExist(lot_History.Lot_History_ID))
+            if (lot_HistoryRepostiory.Lot_HistoryExist(lot_History.Lot_History_ID))
             {
                 return BadRequest(ModelState);
             }
@@ -75,7 +75,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 ModelState.AddModelError("", "Can't give id");
             }
 
-            lot_HistoryRepostiory.CreateUsers(lot_History);
+            lot_HistoryRepostiory.CreateLot_History(lot_History);
 
             return Ok("Successfully created");
 
@@ -84,15 +84,15 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/lot_History/put")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateUserTypes([FromBody] Lot_History lot_History)
+        public IActionResult UpdateLot_History([FromBody] Lot_History lot_History)
         {
-            if (!lot_HistoryRepostiory.UsersExist(lot_History.Lot_History_ID))
+            if (!lot_HistoryRepostiory.Lot_HistoryExist(lot_History.Lot_History_ID))
             {
                 ModelState.AddModelError("", "id did not exist");
                 return StatusCode(500, ModelState);
             }
 
-            lot_HistoryRepostiory.UpdateUsers(lot_History);
+            lot_HistoryRepostiory.UpdateLot_History(lot_History);
             return Ok("User Successfully Updated");
         }
 
@@ -101,16 +101,16 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteLottypes(int Lot_History_ID)
+        public IActionResult DeleteLot_History(int Lot_History_ID)
         {
-            if (!lot_HistoryRepostiory.UsersExist(Lot_History_ID))
+            if (!lot_HistoryRepostiory.Lot_HistoryExist(Lot_History_ID))
             {
                 return NotFound();
             }
 
-            var userToDelete = lot_HistoryRepostiory.GetUsersbyID(Lot_History_ID);
+            var userToDelete = lot_HistoryRepostiory.GetLot_HistoryByID(Lot_History_ID);
 
-            if (!lot_HistoryRepostiory.DeleteUsers(userToDelete))
+            if (!lot_HistoryRepostiory.DeleteLot_History(userToDelete))
             {
                 ModelState.AddModelError("", "Something went wrong deleting User");
             }

@@ -35,7 +35,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/user/byOrganisation{OrganisationID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
         [ProducesResponseType(400)]
-        public IActionResult getCerealbyOrganisation(int OrganisationID)
+        public IActionResult GetUserbyOrganisation(int OrganisationID)
         {
 
             var users = userRepository.GetUsersByOrganisationId(OrganisationID);
@@ -53,7 +53,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/user/byType{TypeID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
         [ProducesResponseType(400)]
-        public IActionResult getCerealbyType(int TypeID)
+        public IActionResult GetUserbyType(int TypeID)
         {
 
             var users = userRepository.GetUsersByTypeID(TypeID);
@@ -119,7 +119,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteLottypes(int UserId)
+        public IActionResult DeleteUsers(int UserId)
         {
             if (!userRepository.UsersExist(UserId))
             {

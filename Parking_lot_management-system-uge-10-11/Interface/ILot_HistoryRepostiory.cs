@@ -4,14 +4,14 @@ namespace Parking_lot_management_system_uge_10_11.Interface
 {
     public interface ILot_HistoryRepostiory
     {
-        ICollection<Lot_History> GetAllUsers();
-        Lot_History GetUsersbyID(int id);
-        bool UsersExist(int id);
-        bool DeleteUsers(Lot_History lot_History);
-        bool CreateUsers(Lot_History lot_History);
-        bool UpdateUsers(Lot_History lot_History);
+        ICollection<Lot_History> GetAllLot_Historys();
+        Lot_History GetLot_HistoryByID(int id);
+        bool Lot_HistoryExist(int id);
+        bool DeleteLot_History(Lot_History lot_History);
+        bool CreateLot_History(Lot_History lot_History);
+        bool UpdateLot_History(Lot_History lot_History);
         bool save();
 
-        ICollection<Lot_History> GetLotByparking_Lot_StructurIdAndLottypeID(string License_plate);
+        ICollection<Lot_History> GetLot_HistoryByLicence_plate(string License_plate);
     }
 }

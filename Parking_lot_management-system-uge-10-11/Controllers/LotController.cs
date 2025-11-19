@@ -18,7 +18,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/Lot/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
-        public IActionResult GetAllLotTypes()
+        public IActionResult GetAllLot()
         {
             var lot = lotRepository.GetAllLots();
 
@@ -71,7 +71,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("Lot/byLotTypeAndbyparking_Lot_Structur/{lotTypeId}/{parking_Lot_StructurId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
         [ProducesResponseType(400)]
-        public IActionResult GetLotsbyLotType(int lotTypeId, int parking_Lot_StructurId)
+        public IActionResult GetLotsbyLotTypeAndparking_Lot_Structur(int lotTypeId, int parking_Lot_StructurId)
         {
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeID(parking_Lot_StructurId, lotTypeId);
@@ -89,7 +89,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("Lot/byLotTypeAndbyparking_Lot_Structur/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
         [ProducesResponseType(400)]
-        public IActionResult GetLotsbyLotType(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status)
+        public IActionResult GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status)
         {
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(parking_Lot_StructurId, lotTypeId, occupied_Status);
@@ -107,7 +107,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/Lot/post")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult CreateUser([FromBody] Lot lot)
+        public IActionResult CreateLot([FromBody] Lot lot)
         {
             if (lot == null)
             {
@@ -138,7 +138,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/Lot/put")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateUserTypes([FromBody] Lot lot)
+        public IActionResult UpdateLot([FromBody] Lot lot)
         {
             if (!lotRepository.LotsExist(lot.LotID))
             {
@@ -154,7 +154,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteLottypes(int LotID)
+        public IActionResult DeleteLot(int LotID)
         {
             if (!lotRepository.LotsExist(LotID))
             {
