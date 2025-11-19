@@ -27,6 +27,7 @@ namespace Parking_lot_management_system_uge_10_11
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IParking_Lot_structursRepository, Parking_Lot_structursRepository>();
             builder.Services.AddScoped<ILotRepository, LotRepository>();
+            builder.Services.AddScoped<ILot_HistoryRepostiory, Lot_HistoryRepostiory>();
 
             builder.Services.AddSwaggerGen(opt =>
             {
