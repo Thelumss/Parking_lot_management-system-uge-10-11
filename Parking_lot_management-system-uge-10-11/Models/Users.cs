@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Parking_lot_management_system_uge_10_11.Models
 {
@@ -18,13 +19,15 @@ namespace Parking_lot_management_system_uge_10_11.Models
         public int UserTypeID { get; set; }
 
         [ForeignKey("UserTypeID")]
-        public virtual User_Types UserType { get; set; }
+        [JsonIgnore]
+        public virtual User_Types? UserType { get; set; }
         
         
         public int OrganisationId { get; set; }
         
         [ForeignKey("OrganisationId")]
-        public virtual Organisation Organisation { get; set; }
+        [JsonIgnore]
+        public virtual Organisation? Organisation { get; set; }
 
     }
 }
