@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -7,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 {
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class Lot_HistoryController : Controller
     {
         private readonly ILot_HistoryRepostiory lot_HistoryRepostiory;
@@ -18,6 +20,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/lot_History/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
+        [Authorize]
         public IActionResult GetAllLot_History()
         {
             var lot_history = lot_HistoryRepostiory.GetAllLot_Historys();
@@ -35,6 +38,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/lot_History/License_plate{License_plate}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
         [ProducesResponseType(400)]
+        [Authorize]
         public IActionResult getLot_HistorybyLicensePlate(string License_plate)
         {
 
@@ -53,6 +57,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/lot_History/CreateLot_History")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CreateLot_History([FromBody] Lot_History lot_History)
         {
             if (lot_History == null)
@@ -84,6 +89,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/lot_History/UpdateLot_History")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateLot_History([FromBody] Lot_History lot_History)
         {
             if (!lot_HistoryRepostiory.Lot_HistoryExist(lot_History.Lot_History_ID))
@@ -101,6 +107,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteLot_History(int Lot_History_ID)
         {
             if (!lot_HistoryRepostiory.Lot_HistoryExist(Lot_History_ID))

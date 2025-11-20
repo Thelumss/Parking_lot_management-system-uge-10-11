@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -7,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 {
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class OrganisationController : Controller
     {
         private readonly IOrganisationRepository organisationRepository;
@@ -17,6 +19,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/Organisation/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Organisation>))]
+        [Authorize]
         public IActionResult GetAllOrganisation()
         {
             var organisation = organisationRepository.GetAllOrganisation();
@@ -34,6 +37,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/Organisation/CreateOrganisations")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CreateOrganisations([FromBody] Organisation organisation)
         {
             if (organisation == null)
@@ -64,6 +68,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/Organisation/UpdateOrganisation")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateOrganisation([FromBody] Organisation organisation)
         {
             if (!organisationRepository.OrganisationExist(organisation.OrganisationID))
@@ -80,6 +85,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteLottypes(int Id)
         {
             if (!organisationRepository.OrganisationExist(Id))

@@ -1,10 +1,13 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Parking_lot_management_system_uge_10_11.Data;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
+using System.Text;
 
 namespace Parking_lot_management_system_uge_10_11
 {
@@ -28,6 +31,7 @@ namespace Parking_lot_management_system_uge_10_11
             builder.Services.AddScoped<IParking_Lot_structursRepository, Parking_Lot_structursRepository>();
             builder.Services.AddScoped<ILotRepository, LotRepository>();
             builder.Services.AddScoped<ILot_HistoryRepostiory, Lot_HistoryRepostiory>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddSwaggerGen(opt =>
             {
@@ -40,7 +44,6 @@ namespace Parking_lot_management_system_uge_10_11
                     In = ParameterLocation.Header,
 
                 });
-
                 opt.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -72,9 +75,21 @@ namespace Parking_lot_management_system_uge_10_11
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer("Data Source=SPAC-PF5GM5KK\\SQLEXPRESS;Initial Catalog=ParkingSystem;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                options.UseSqlServer("Data Source=DESKTOP-02AH0S4\\SQLEXPRESS01;Initial Catalog=ParkingSystem;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             });
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+                ValidateAudience = true,
+                ValidAudience = builder.Configuration["AppSettings:Audience"],
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)),
+                ValidateIssuerSigningKey = true,
+            });
 
             var app = builder.Build();
 
@@ -91,8 +106,8 @@ namespace Parking_lot_management_system_uge_10_11
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

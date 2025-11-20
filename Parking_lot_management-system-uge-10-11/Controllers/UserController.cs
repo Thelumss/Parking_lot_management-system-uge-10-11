@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -7,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 {
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserRepository userRepository;
@@ -18,6 +20,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/User/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
+        [Authorize]
         public IActionResult GetAllLotTypes()
         {
             var user = userRepository.GetAllUsers();
@@ -35,6 +38,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/user/byOrganisation{OrganisationID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
         [ProducesResponseType(400)]
+        [Authorize]
         public IActionResult GetUserbyOrganisation(int OrganisationID)
         {
 
@@ -53,6 +57,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/user/byType{TypeID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
         [ProducesResponseType(400)]
+        [Authorize]
         public IActionResult GetUserbyType(int TypeID)
         {
 
@@ -68,41 +73,10 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-
-        [HttpPost("/User/CreateUser")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public IActionResult CreateUser([FromBody] Users users)
-        {
-            if (users == null)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (userRepository.UsersExist(users.UserID))
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (users.UserID != 0)
-            {
-                ModelState.AddModelError("", "Can't give id");
-            }
-
-            userRepository.CreateUsers(users);
-
-            return Ok("Successfully created");
-
-        }
-
         [HttpPut("/User/UpdateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateUserTypes([FromBody] Users users)
         {
             if (!userRepository.UsersExist(users.UserID))
@@ -119,6 +93,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteUsers(int UserId)
         {
             if (!userRepository.UsersExist(UserId))

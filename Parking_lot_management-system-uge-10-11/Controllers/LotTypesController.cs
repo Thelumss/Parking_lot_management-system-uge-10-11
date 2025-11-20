@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -7,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 {
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class LotTypesController : Controller
     {
         private readonly ILotTypesRepository lotTypesRepository;
@@ -17,6 +19,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/LotTypes/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_types>))]
+        [Authorize]
         public IActionResult GetAllLotTypes()
         {
             var lot_types = lotTypesRepository.GetAllLot_Types();
@@ -34,6 +37,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/Lottypes/CreateLotTypes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CreateLotTypes([FromBody] Lot_types lot_Types)
         {
             if(lot_Types == null)
@@ -65,6 +69,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/Lottypes/UpdateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateUserTypes([FromBody] Lot_types lot_Types)
         {
             if (!lotTypesRepository.LotTypesExist(lot_Types.Lot_typesID))
@@ -81,6 +86,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteLottypes(int lottypesid)
         {
             if (!lotTypesRepository.LotTypesExist(lottypesid))

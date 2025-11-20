@@ -8,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class UserstypesController : Controller
     {
         private readonly IUserTypesRepository userTypesRepository;
@@ -19,6 +20,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/UserTypes/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<User_Types>))]
+        [Authorize]
         public IActionResult GetAllUser_types()
         {
             var user_types = userTypesRepository.GetUser_Types();
@@ -37,6 +39,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/UserTypes/CreateUserTypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CreateUserTypes([FromBody] User_Types user_Types)
         {
             if (user_Types == null) 
@@ -67,6 +70,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/UserTypes/UpdateUsertypes")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateUsertypes([FromBody] User_Types user_TypesUpdate)
         {
 
@@ -84,6 +88,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteUsertypes(int Usertypesid)
         {
             if (!userTypesRepository.UserTypesExist(Usertypesid))

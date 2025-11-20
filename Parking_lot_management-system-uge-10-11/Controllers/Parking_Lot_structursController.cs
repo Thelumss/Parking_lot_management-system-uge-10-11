@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -7,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 {
     [Route("api/[controller]")]
     [Microsoft.AspNetCore.Mvc.ApiController]
+    [Authorize]
     public class Parking_Lot_structursController : Controller
     {
         private readonly IParking_Lot_structursRepository parking_Lot_StructursRepository;
@@ -18,6 +20,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         [HttpGet("/parking_Lot_Structur/All")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
+        [Authorize]
         public IActionResult GetAllParking_Lot_Structur()
         {
             var parking_Lot_Structur = parking_Lot_StructursRepository.GetAllparking_Lot_Structur();
@@ -35,6 +38,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpGet("/parking_Lot_Structur/byOrganisation{OrganisationID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
         [ProducesResponseType(400)]
+        [Authorize]
         public IActionResult GetParking_Lot_StructurbyOrganisation(int OrganisationID)
         {
 
@@ -53,6 +57,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPost("/parking_Lot_Structur/CreateParking_Lot_Structur")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CreateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)
         {
             if (parking == null)
@@ -84,6 +89,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/parking_Lot_Structur/UpdateParking_Lot_Structur")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult UpdateParking_Lot_Structur([FromBody] Parking_Lot_Structur parking)
         {
             if (!parking_Lot_StructursRepository.parking_Lot_StructurExist(parking.Parking_lot_Structur_ID))
@@ -100,6 +106,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult DeleteParking_Lot_Structur(int parking_Lot_StructurID)
         {
             if (!parking_Lot_StructursRepository.parking_Lot_StructurExist(parking_Lot_StructurID))
