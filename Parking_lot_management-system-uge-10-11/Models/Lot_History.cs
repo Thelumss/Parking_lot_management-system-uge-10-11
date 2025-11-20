@@ -15,6 +15,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
         public long? Exit_time { get; set; }
 
         public float? Charged { get; set; }
+        public bool active {  get; set; } = true;
 
         public int Lot_ID { get; set; }
         [ForeignKey("Lot_ID")]

@@ -28,6 +28,11 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return context.lots.OrderBy(x => x.LotID).ToList();
         }
 
+        public Lot GetFirstBestLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(int parking_Lot_StructurID, int lottypeID, bool occupie_status)
+        {
+            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.Occupied_Status == occupie_status)).FirstOrDefault();
+        }
+
         public Lot GetLotbyID(int id)
         {
             return context.lots.Where(x => x.LotID == id).FirstOrDefault();

@@ -54,5 +54,15 @@ namespace Parking_lot_management_system_uge_10_11.Repository
         {
             return context.lot_Histories.Any(x => x.Lot_History_ID == id);
         }
+
+        Lot_History ILot_HistoryRepostiory.GetALot_HistoryByLicence_plate(string License_plate)
+        {
+            return context.lot_Histories.Where(x => x.License_PLate_Numbers == License_plate).FirstOrDefault();
+        }
+
+        public Lot_History GetLot_HistoryByLicence_plateAndActive(string License_plate, bool active)
+        {
+            return context.lot_Histories.Where(x => (x.License_PLate_Numbers == License_plate) && (x.active == active)).FirstOrDefault();
+        }
     }
 }

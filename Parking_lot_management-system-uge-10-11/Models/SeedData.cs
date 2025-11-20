@@ -118,6 +118,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
                     {
                         Name = "rosegarden lots",
                         Adress = "smoethingstreet",
+                        BasePrice = 200,
                         Total_Available_Lots = 200,
                         Total_Occupied_Lots = 0,
                         OrganisationId = context.Organisation
@@ -128,6 +129,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
                     {
                         Name = "city garage A",
                         Adress = "smoethingstreet",
+                        BasePrice = 200,
                         Total_Available_Lots = 100,
                         Total_Occupied_Lots = 0,
                         OrganisationId = context.Organisation
@@ -137,6 +139,7 @@ namespace Parking_lot_management_system_uge_10_11.Models
                     {
                         Name = "city garage B",
                         Adress = "smoethingstreet",
+                        BasePrice = 200,
                         Total_Available_Lots = 50,
                         Total_Occupied_Lots = 0,
                         OrganisationId = context.Organisation
