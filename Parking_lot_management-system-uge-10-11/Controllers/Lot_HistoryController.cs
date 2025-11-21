@@ -46,20 +46,19 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("/lot_History/License_plate{License_plate}")]
+        [HttpGet("/lot_History/License_plate{OrganisationId}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
         [ProducesResponseType(400)]
         [Authorize]
-        public IActionResult getLot_HistorybyLicensePlate(string License_plate)
+        public IActionResult getLot_HistorybyLicensePlate(int OrganisationId)
         {
 
-            var lot_history = lot_HistoryRepostiory.GetLot_HistoryByLicence_plate(License_plate);
-            var lot = lotRepository.GetLotbyID(lot_history.First().Lot_ID);
-            var building = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+            var lot_history = lot_HistoryRepostiory.GetLot_HistoryByOrganisationId(OrganisationId);
 
-            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
 
-            if (building.OrganisationId != int.Parse(OrganisationId))
+            var usersOrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (OrganisationId != int.Parse(usersOrganisationId))
             {
                 return StatusCode(403, "Permission denied");
             }

@@ -1,4 +1,5 @@
-﻿using Parking_lot_management_system_uge_10_11.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Parking_lot_management_system_uge_10_11.Data;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 
@@ -28,10 +29,17 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return context.lot_Histories.OrderBy(x => x.Lot_History_ID).ToList();
         }
 
-        public ICollection<Lot_History> GetLot_HistoryByLicence_plate(string License_plate)
+        public ICollection<Lot_History> GetLot_HistoryByOrganisationId(int OrganisationId)
         {
-            return context.lot_Histories.Where(x => x.License_PLate_Numbers == License_plate).ToList();
+            return context.lot_Histories
+                .Include(h => h.Lot)
+                    .ThenInclude(l => l.Parking_Lot_Structur)
+                .Where(h =>
+                    h.Lot.Parking_Lot_Structur.OrganisationId == OrganisationId
+                    )
+                    .ToList();
         }
+
 
         public Lot_History GetLot_HistoryByID(int id)
         {
