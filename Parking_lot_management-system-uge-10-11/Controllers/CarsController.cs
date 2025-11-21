@@ -88,6 +88,10 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             var carsLot = lot_HistoryRepostiory.GetLot_HistoryByLicence_plateAndActive(License_plate, true);
+            if(carsLot == null)
+            {
+                return NotFound();
+            }
             var lot = lotRepository.GetLotbyID(carsLot.Lot_ID);
             var parkingStrucur = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
 

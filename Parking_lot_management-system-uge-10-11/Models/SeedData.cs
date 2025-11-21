@@ -269,41 +269,9 @@ namespace Parking_lot_management_system_uge_10_11.Models
 
                     context.SaveChanges();
 
-                if (!context.lot_Histories.Any())
-                {
-                    var firstLot = context.lots
-                        .Where(p => !p.Occupied_Status)
-                        .OrderBy(p => p.LotID)
-                        .FirstOrDefault();
-
-                    var lastLot = context.lots
-                        .Where(p => !p.Occupied_Status)
-                        .OrderByDescending(p => p.LotID)
-                        .FirstOrDefault();
-
-
-                    if (firstLot != null && lastLot != null)
-                    {
-                        context.lot_Histories.AddRange(
-                            new Lot_History
-                            {
-                                Lot_ID = firstLot.LotID,
-                                License_PLate_Numbers = "DKdwaff35",
-                                Entry_time = DateTimeOffset.Now.ToUnixTimeMilliseconds(),
-                                Exit_time = DateTimeOffset.Now.AddHours(2).ToUnixTimeMilliseconds(),
-                            },
-                            new Lot_History
-                            {
-                                Lot_ID = lastLot.LotID,
-                                License_PLate_Numbers = "DKjytu35",
-                                Entry_time = DateTimeOffset.Now.AddHours(1).ToUnixTimeMilliseconds(),
-                                Exit_time = DateTimeOffset.Now.AddHours(3).ToUnixTimeMilliseconds(),
-                            }
-                        );
-
-                        context.SaveChanges();
-                    }
-                }
+                
+                    
+                
 
             }
         }
