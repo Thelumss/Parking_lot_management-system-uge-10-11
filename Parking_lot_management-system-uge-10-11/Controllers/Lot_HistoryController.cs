@@ -11,11 +11,15 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
     [Authorize]
     public class Lot_HistoryController : Controller
     {
+        private readonly ILotRepository lotRepository;
+        private readonly IParking_Lot_structursRepository parking_Lot_StructursRepository;
         private readonly ILot_HistoryRepostiory lot_HistoryRepostiory;
 
-        public Lot_HistoryController(ILot_HistoryRepostiory lot_History)
+        public Lot_HistoryController(ILotRepository lot, IParking_Lot_structursRepository parking_Lot_StructursRepository, ILot_HistoryRepostiory lot_HistoryRepostiory)
         {
-            this.lot_HistoryRepostiory = lot_History;
+            this.lotRepository = lot;
+            this.parking_Lot_StructursRepository = parking_Lot_StructursRepository;
+            this.lot_HistoryRepostiory = lot_HistoryRepostiory;
         }
 
         [HttpGet("/lot_History/All")]
@@ -23,6 +27,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllLot_History()
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var lot_history = lot_HistoryRepostiory.GetAllLot_Historys();
 
             if (!ModelState.IsValid)
@@ -43,6 +54,16 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         {
 
             var lot_history = lot_HistoryRepostiory.GetLot_HistoryByLicence_plate(License_plate);
+            var lot = lotRepository.GetLotbyID(lot_history.First().Lot_ID);
+            var building = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (building.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
 
             if (!ModelState.IsValid)
             {
@@ -79,6 +100,15 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             {
                 ModelState.AddModelError("", "Can't give id");
             }
+            var lot = lotRepository.GetLotbyID(lot_History.Lot_ID);
+            var building = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (building.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             lot_HistoryRepostiory.CreateLot_History(lot_History);
 
@@ -98,6 +128,16 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return StatusCode(500, ModelState);
             }
 
+            var lot = lotRepository.GetLotbyID(lot_History.Lot_ID);
+            var building = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (building.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             lot_HistoryRepostiory.UpdateLot_History(lot_History);
             return Ok("User Successfully Updated");
         }
@@ -113,6 +153,15 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             if (!lot_HistoryRepostiory.Lot_HistoryExist(Lot_History_ID))
             {
                 return NotFound();
+            }
+            var lot = lotRepository.GetLotbyID(Lot_History_ID);
+            var building = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (building.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
             }
 
             var userToDelete = lot_HistoryRepostiory.GetLot_HistoryByID(Lot_History_ID);

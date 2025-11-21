@@ -12,10 +12,12 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
     public class LotController : Controller
     {
         private readonly ILotRepository lotRepository;
+        private readonly IParking_Lot_structursRepository parking_Lot_StructursRepository;
 
-        public LotController(ILotRepository lot)
+        public LotController(ILotRepository lot, IParking_Lot_structursRepository parking_Lot_StructursRepository)
         {
             this.lotRepository = lot;
+            this.parking_Lot_StructursRepository = parking_Lot_StructursRepository;
         }
 
         [HttpGet("/Lot/All")]
@@ -23,6 +25,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllLot()
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var lot = lotRepository.GetAllLots();
 
             if (!ModelState.IsValid)
@@ -41,8 +50,17 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotsbyOrganisation(int parking_Lot_StructurId)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurId(parking_Lot_StructurId);
+            
 
             if (!ModelState.IsValid)
             {
@@ -60,6 +78,12 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotsbyLotType(int LotTypeId)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurId(LotTypeId);
 
@@ -79,6 +103,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotsbyLotTypeAndparking_Lot_Structur(int lotTypeId, int parking_Lot_StructurId)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeID(parking_Lot_StructurId, lotTypeId);
 
@@ -98,6 +130,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(parking_Lot_StructurId, lotTypeId, occupied_Status);
 
@@ -117,6 +157,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotByparking_Lot_StructurIdAndLotName(int parking_Lot_StructurId, string lotName)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLotName(parking_Lot_StructurId, lotName);
 
@@ -136,27 +184,16 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName(int lotTypeId, int parking_Lot_StructurId, string lotName)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndLotName(parking_Lot_StructurId, lotTypeId, lotName);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                return Ok(lot);
-            }
-        }
-
-        [HttpGet("Lot/GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname/{lotTypeId}/{parking_Lot_StructurId}/{occupied_Status}/{lotName}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
-        [ProducesResponseType(400)]
-        [Authorize]
-        public IActionResult GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status, string lotName)
-        {
-
-            var lot = lotRepository.GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(parking_Lot_StructurId, lotTypeId, occupied_Status, lotName);
 
             if (!ModelState.IsValid)
             {
@@ -174,6 +211,15 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult CreateLot([FromBody] Lot lot)
         {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             if (lot == null)
             {
                 return BadRequest(ModelState);
@@ -206,6 +252,17 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult UpdateLot([FromBody] Lot lot)
         {
+
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+
             if (!lotRepository.LotsExist(lot.LotID))
             {
                 ModelState.AddModelError("", "id did not exist");
@@ -223,12 +280,21 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult DeleteLot(int LotID)
         {
+
             if (!lotRepository.LotsExist(LotID))
             {
                 return NotFound();
             }
 
             var userToDelete = lotRepository.GetLotbyID(LotID);
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(userToDelete.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             if (!lotRepository.DeleteLots(userToDelete))
             {

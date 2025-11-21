@@ -8,6 +8,7 @@ namespace Parking_lot_management_system_uge_10_11.Interface
         Users GetUsersbyID(int id);
         ICollection<Users> GetUsersByTypeID(int typeID);
         ICollection<Users> GetUsersByOrganisationId(int organisationId);
+        ICollection<Users> GetUsersByTypeIDAndOrganisationId(int typeID, int organisationId);
         bool UsersExist(int id);
         bool DeleteUsers(Users users);
         bool CreateUsers(Users users);

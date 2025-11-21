@@ -72,12 +72,12 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
         }
 
-        [HttpPut("/Cars/CarsOut/{Parking_lot_Structur_ID}/{License_plate}/{active}")]
+        [HttpPut("/Cars/CarsOut/{Parking_lot_Structur_ID}/{License_plate}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult CarsOut(int Parking_lot_Structur_ID, string License_plate, bool active)
+        public IActionResult CarsOut(int Parking_lot_Structur_ID, string License_plate)
         {
-            if (Parking_lot_Structur_ID == 0 || License_plate == null || !active)
+            if (Parking_lot_Structur_ID == 0 || License_plate == null)
             {
                 return BadRequest(ModelState);
             }
@@ -87,9 +87,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return BadRequest(ModelState);
             }
 
-            var carsLot = lot_HistoryRepostiory.GetLot_HistoryByLicence_plateAndActive(License_plate, active);
+            var carsLot = lot_HistoryRepostiory.GetLot_HistoryByLicence_plateAndActive(License_plate, true);
             var lot = lotRepository.GetLotbyID(carsLot.Lot_ID);
             var parkingStrucur = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lot.Structur_ID);
+
+            if (parkingStrucur.Parking_lot_Structur_ID != Parking_lot_Structur_ID)
+            {
+                return BadRequest(ModelState);
+            }
 
             parkingStrucur.Total_Available_Lots++;
             parkingStrucur.Total_Occupied_Lots--;

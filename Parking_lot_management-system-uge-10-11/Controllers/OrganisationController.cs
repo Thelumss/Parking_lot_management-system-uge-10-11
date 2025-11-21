@@ -22,6 +22,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllOrganisation()
         {
+
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var organisation = organisationRepository.GetAllOrganisation();
 
             if (!ModelState.IsValid)
@@ -40,6 +48,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult CreateOrganisations([FromBody] Organisation organisation)
         {
+
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             if (organisation == null)
             {
                 return BadRequest(ModelState);
@@ -76,6 +92,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 ModelState.AddModelError("", "id did not exist");
                 return StatusCode(500, ModelState);
             }
+            var organistionToupdate = organisationRepository.GetOrganisation(organisation.OrganisationID);
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (organistionToupdate.OrganisationID != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
 
             organisationRepository.UpdateOrganisation(organisation);
             return Ok("organisation Successfully Updated");
@@ -94,6 +118,12 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             var userToDelete = organisationRepository.GetOrganisation(Id);
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             if (!organisationRepository.DeleteOrganisation(userToDelete))
             {

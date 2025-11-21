@@ -22,6 +22,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllLotTypes()
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var lot_types = lotTypesRepository.GetAllLot_Types();
 
             if (!ModelState.IsValid)
@@ -40,7 +47,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult CreateLotTypes([FromBody] Lot_types lot_Types)
         {
-            if(lot_Types == null)
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+            if (lot_Types == null)
             {
                 return BadRequest(ModelState);
             }
@@ -72,6 +86,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult UpdateUserTypes([FromBody] Lot_types lot_Types)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             if (!lotTypesRepository.LotTypesExist(lot_Types.Lot_typesID))
             {
                 ModelState.AddModelError("", "id did not exist");
@@ -89,6 +110,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult DeleteLottypes(int lottypesid)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             if (!lotTypesRepository.LotTypesExist(lottypesid))
             {
                 return NotFound();

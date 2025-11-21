@@ -45,6 +45,11 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return context.Users.Where(x => x.UserTypeID == typeID).ToList();
         }
 
+        public ICollection<Users> GetUsersByTypeIDAndOrganisationId(int typeID, int organisationId)
+        {
+            return context.Users.Where(x => (x.UserTypeID == typeID)&&(x.OrganisationId == organisationId)).ToList();
+        }
+
         public bool save()
         {
             var saved = context.SaveChanges();

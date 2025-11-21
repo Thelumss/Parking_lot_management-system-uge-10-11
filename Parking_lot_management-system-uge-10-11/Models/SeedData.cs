@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Parking_lot_management_system_uge_10_11.Data;
 
 namespace Parking_lot_management_system_uge_10_11.Models
@@ -48,10 +50,11 @@ namespace Parking_lot_management_system_uge_10_11.Models
 
                 if (!context.Users.Any())
                 {
+                    var user = new Users();
                     context.AddRange(new Users
                     {
                         Name = "admin",
-                        Password = "admin",
+                        Password = new PasswordHasher<Users>().HashPassword(user, "admin"),
                         Email = "admin@admin",
                         UserTypeID = context.user_Types
                             .First(p => p.User_TypesName == "Admin").User_TypesID,
@@ -59,11 +62,11 @@ namespace Parking_lot_management_system_uge_10_11.Models
                             .First(p => p.OrganisationName == "CreatringCompany").OrganisationID,
 
                     });
-
+                    user = new Users();
                     context.AddRange(new Users
                     {
                         Name = "RosegardenParking",
-                        Password = "RosegardenParking",
+                        Password = new PasswordHasher<Users>().HashPassword(user, "RosegardenParking"),
                         Email = "RosegardenParking@email",
                         UserTypeID = context.user_Types
                             .First(p => p.User_TypesName == "Company_Admin").User_TypesID,
@@ -72,14 +75,15 @@ namespace Parking_lot_management_system_uge_10_11.Models
 
                     });
 
-
+                    user = new Users();
                     context.AddRange(new Users
                     {
+
                         Name = "OdenseCityParking",
-                        Password = "OdenseCityParking",
+                        Password = new PasswordHasher<Users>().HashPassword(user, "OdenseCityParking"),
                         Email = "OdenseCityParking@email",
                         UserTypeID = context.user_Types
-                            .First(p => p.User_TypesName == "Admin").User_TypesID,
+                            .First(p => p.User_TypesName == "Company_Admin").User_TypesID,
                         OrganisationId = context.Organisation
                             .First(p => p.OrganisationName == "OdenseCityParking").OrganisationID,
 

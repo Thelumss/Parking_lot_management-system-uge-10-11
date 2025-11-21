@@ -23,6 +23,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllUser_types()
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var user_types = userTypesRepository.GetUser_Types();
 
             if (!ModelState.IsValid)
@@ -73,6 +80,12 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult UpdateUsertypes([FromBody] User_Types user_TypesUpdate)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 == user_TypesUpdate.User_TypesID && 1!= int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             if (!userTypesRepository.UserTypesExist(user_TypesUpdate.User_TypesID))
             {
@@ -91,6 +104,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult DeleteUsertypes(int Usertypesid)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 == Usertypesid && 1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             if (!userTypesRepository.UserTypesExist(Usertypesid))
             {
                 return NotFound();

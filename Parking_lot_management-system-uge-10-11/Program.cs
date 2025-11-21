@@ -75,7 +75,7 @@ namespace Parking_lot_management_system_uge_10_11
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer("Data Source=DESKTOP-02AH0S4\\SQLEXPRESS01;Initial Catalog=ParkingSystem;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                options.UseSqlServer("Data Source=SPAC-PF5GM5KK\\SQLEXPRESS;Initial Catalog=ParkingSystem;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

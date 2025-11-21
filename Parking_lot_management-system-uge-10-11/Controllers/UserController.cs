@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
+using System;
 
 namespace Parking_lot_management_system_uge_10_11.Controllers
 {
@@ -23,6 +24,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetAllLotTypes()
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
             var user = userRepository.GetAllUsers();
 
             if (!ModelState.IsValid)
@@ -34,6 +42,30 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return Ok(user);
             }
         }
+        [HttpGet("/user/adminByOrganisation{OrganisationID}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
+        [ProducesResponseType(400)]
+        [Authorize]
+        public IActionResult GetUserbyOrganisationAdmin(int OrganisationID)
+        {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+            var users = userRepository.GetUsersByOrganisationId(OrganisationID);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(users);
+            }
+        }
 
         [HttpGet("/user/byOrganisation{OrganisationID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
@@ -41,8 +73,39 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetUserbyOrganisation(int OrganisationID)
         {
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (OrganisationID != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             var users = userRepository.GetUsersByOrganisationId(OrganisationID);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(users);
+            }
+        }
+
+        [HttpGet("/user/adminByType{TypeID}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
+        [ProducesResponseType(400)]
+        [Authorize]
+        public IActionResult GetUserbyTypeAdmin(int TypeID)
+        {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
+
+            if (1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+            var users = userRepository.GetUsersByTypeID(TypeID);
 
             if (!ModelState.IsValid)
             {
@@ -60,8 +123,14 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult GetUserbyType(int TypeID)
         {
+            var UserTypeID = User.FindFirst("UserTypeID")?.Value;
 
-            var users = userRepository.GetUsersByTypeID(TypeID);
+            if (1 == TypeID && 1 != int.Parse(UserTypeID))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+            var users = userRepository.GetUsersByTypeIDAndOrganisationId(TypeID, int.Parse(UserTypeID));
 
             if (!ModelState.IsValid)
             {
@@ -84,6 +153,13 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 ModelState.AddModelError("", "id did not exist");
                 return StatusCode(500, ModelState);
             }
+            var userToUpdate = userRepository.GetUsersbyID(users.UserID);
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (userToUpdate.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             userRepository.UpdateUsers(users);
             return Ok("User Successfully Updated");
@@ -96,12 +172,20 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [Authorize]
         public IActionResult DeleteUsers(int UserId)
         {
+
             if (!userRepository.UsersExist(UserId))
             {
                 return NotFound();
             }
 
             var userToDelete = userRepository.GetUsersbyID(UserId);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if ( userToDelete.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
 
             if (!userRepository.DeleteUsers(userToDelete))
             {
