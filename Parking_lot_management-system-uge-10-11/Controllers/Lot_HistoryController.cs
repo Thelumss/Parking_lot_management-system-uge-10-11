@@ -46,11 +46,34 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("/lot_History/License_plate{OrganisationId}")]
+        [HttpGet("/lot_History/OrganisationId")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
         [ProducesResponseType(400)]
         [Authorize]
-        public IActionResult getLot_HistorybyLicensePlate(int OrganisationId)
+        public IActionResult getLot_HistorybyLicensePlate()
+        {
+
+
+
+            var usersOrganisationId = User.FindFirst("OrganisationId")?.Value;
+            var lot_history = lot_HistoryRepostiory.GetLot_HistoryByOrganisationId(int.Parse(usersOrganisationId));
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(lot_history);
+            }
+        }
+
+
+        [HttpGet("/lot_History/adminOrganisationId{OrganisationId}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot_History>))]
+        [ProducesResponseType(400)]
+        [Authorize]
+        public IActionResult getadminLot_HistorybyLicensePlate(int OrganisationId)
         {
 
             var lot_history = lot_HistoryRepostiory.GetLot_HistoryByOrganisationId(OrganisationId);

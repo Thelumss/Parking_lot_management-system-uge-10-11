@@ -60,7 +60,7 @@ namespace Parking_lot_management_system_uge_10_11.Repository
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.NameIdentifier, user.Email.ToString()),
             };
-
+            claims.Add(new Claim("UserID", user.UserID.ToString()));
             claims.Add(new Claim("userTypeID",user.UserTypeID.ToString()));
             claims.Add(new Claim("organisationId", user.OrganisationId.ToString()));
 

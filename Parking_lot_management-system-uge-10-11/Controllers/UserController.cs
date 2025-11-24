@@ -67,20 +67,16 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("/user/byOrganisation{OrganisationID}")]
+        [HttpGet("/user/byOrganisation")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
         [ProducesResponseType(400)]
         [Authorize]
-        public IActionResult GetUserbyOrganisation(int OrganisationID)
+        public IActionResult GetUserbyOrganisation()
         {
             var OrganisationId = User.FindFirst("OrganisationId")?.Value;
 
-            if (OrganisationID != int.Parse(OrganisationId))
-            {
-                return StatusCode(403, "Permission denied");
-            }
 
-            var users = userRepository.GetUsersByOrganisationId(OrganisationID);
+            var users = userRepository.GetUsersByOrganisationId(int.Parse(OrganisationId));
 
             if (!ModelState.IsValid)
             {
@@ -131,6 +127,27 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             var users = userRepository.GetUsersByTypeIDAndOrganisationId(TypeID, int.Parse(UserTypeID));
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(users);
+            }
+        }
+
+        [HttpGet("/user/getMe")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Users>))]
+        [ProducesResponseType(400)]
+        [Authorize]
+        public IActionResult getMe()
+        {
+            var UserID = User.FindFirst("UserID")?.Value;
+
+
+            var users = userRepository.GetUsersbyID(int.Parse(UserID));
 
             if (!ModelState.IsValid)
             {

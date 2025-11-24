@@ -1,4 +1,4 @@
-
+﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -93,10 +93,6 @@ namespace Parking_lot_management_system_uge_10_11
 
             var app = builder.Build();
 
-            using var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            SeedData.Initialize(services);
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -104,7 +100,18 @@ namespace Parking_lot_management_system_uge_10_11
                 app.UseSwaggerUI();
             }
 
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            SeedData.Initialize(services);
+
+
             app.UseHttpsRedirection();
+
+            // ⬅ IMPORTANT: Routing BEFORE CORS
+            app.UseRouting();
+
+            // ⬅ CORS BEFORE Authentication
+            app.UseCors("MyPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

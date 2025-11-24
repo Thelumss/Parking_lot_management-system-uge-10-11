@@ -31,7 +31,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             {
                 return BadRequest("Invalid username or password");
             }
-            return Ok(token);
+            return Ok(new { access_token = token });
         }
     }
 }

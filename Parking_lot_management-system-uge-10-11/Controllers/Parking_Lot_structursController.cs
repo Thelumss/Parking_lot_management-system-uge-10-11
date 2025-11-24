@@ -42,7 +42,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
         }
 
-        [HttpGet("/parking_Lot_Structur/byOrganisation{OrganisationID}")]
+        [HttpGet("/parking_Lot_Structur/AdminbyOrganisation{OrganisationID}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
         [ProducesResponseType(400)]
         [Authorize]
@@ -56,6 +56,26 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             var parking_Lot_Structur = parking_Lot_StructursRepository.Getparking_Lot_StructurByOrganisationId(OrganisationID);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok(parking_Lot_Structur);
+            }
+        }
+
+        [HttpGet("/parking_Lot_Structur/byOrganisation")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Parking_Lot_Structur>))]
+        [ProducesResponseType(400)]
+        [Authorize]
+        public IActionResult GetParking_Lot_StructurbyOrganisation()
+        {
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            var parking_Lot_Structur = parking_Lot_StructursRepository.Getparking_Lot_StructurByOrganisationId(int.Parse(OrganisationId));
 
             if (!ModelState.IsValid)
             {
