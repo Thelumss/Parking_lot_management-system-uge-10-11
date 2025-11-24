@@ -1,0 +1,33 @@
+<h2>Edit Product</h2>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Adress</mat-label>
+    <input matInput formControlName="adress">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Total Available Lots</mat-label>
+    <input matInput type="number" formControlName="total_Available_Lots">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Total Occupied Lots</mat-label>
+    <input matInput type="number" formControlName="total_Occupied_Lots">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Base Price</mat-label>
+    <input matInput type="number" formControlName="basePrice">
+  </mat-form-field>
+
+  <div style="margin-top: 15px;">
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-flat-button color="primary" (click)="save()">Save</button>
+  </div>
+</form>

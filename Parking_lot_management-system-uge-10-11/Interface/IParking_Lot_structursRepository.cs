@@ -10,7 +10,7 @@ namespace Parking_lot_management_system_uge_10_11.Interface
         bool parking_Lot_StructurExist(int id);
         bool Deleteparking_Lot_Structur(Parking_Lot_Structur parking_Lot_Structur);
         bool CreateParking_Lot_Structur(Parking_Lot_Structur parking_Lot_Structur);
-        bool Updateparking_Lot_Structur(Parking_Lot_Structur parking_Lot_Structur);
+        bool Updateparking_Lot_Structur(Parking_Lot_Structur existing, Parking_Lot_Structur updated);
         bool save();
     }
 }

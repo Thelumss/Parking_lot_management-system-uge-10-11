@@ -9,13 +9,20 @@ import { CarOutcomponent } from './CarIn_CarsOut/car-outcomponent/car-outcompone
 
 export const routes: Routes = [
     {path: "parkingstructur", component: ParkingStructurcomponent},
-    {path: "lots", component: Lotcomponent},
     {path: "lotshsitory", component: LotHistorycomponent},
     {path: "userlogin", component: UserLogincomponent},
     {path: "users", component: UsersUserscomponent},
 
     {path: "carin", component: CarIncomponent},
     {path: "carout", component: CarOutcomponent},
+
+    {
+        path: 'lots/:id',
+        loadComponent: () =>
+        import('./Tools/lotcomponent/lotcomponent')
+            .then(c => c.Lotcomponent)
+    },
+
 
     {path: '**', redirectTo: 'parkingstructur'},
 

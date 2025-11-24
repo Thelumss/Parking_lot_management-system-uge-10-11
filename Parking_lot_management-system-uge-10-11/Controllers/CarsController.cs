@@ -54,7 +54,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             Parking_Lot_Structur Parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(Parking_lot_Structur_ID);
             Parkinglot.Total_Available_Lots--;
             Parkinglot.Total_Occupied_Lots++;
-            parking_Lot_StructursRepository.Updateparking_Lot_Structur(Parkinglot);
+            parking_Lot_StructursRepository.Updateparking_Lot_Structur(Parkinglot, Parkinglot);
 
             carLot.Occupied_Status = true;
             lotRepository.UpdateLots(carLot);
@@ -102,7 +102,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
             parkingStrucur.Total_Available_Lots++;
             parkingStrucur.Total_Occupied_Lots--;
-            parking_Lot_StructursRepository.Updateparking_Lot_Structur(parkingStrucur);
+            parking_Lot_StructursRepository.Updateparking_Lot_Structur(parkingStrucur, parkingStrucur);
 
             lot.Occupied_Status = false;
             lotRepository.UpdateLots(lot);

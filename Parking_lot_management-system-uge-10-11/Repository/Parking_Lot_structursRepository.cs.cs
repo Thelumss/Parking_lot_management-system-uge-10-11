@@ -49,10 +49,18 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return saved > 0 ? true : false;
         }
 
-        public bool Updateparking_Lot_Structur(Parking_Lot_Structur parking_Lot_Structur)
+        public bool Updateparking_Lot_Structur(Parking_Lot_Structur existing, Parking_Lot_Structur updated)
         {
-            context.parking_Lot_Structurs.Update(parking_Lot_Structur);
+            // Update only the fields that are allowed to change
+            existing.Name = updated.Name;
+            existing.Adress = updated.Adress;
+            existing.Total_Available_Lots = updated.Total_Available_Lots;
+            existing.Total_Occupied_Lots = updated.Total_Occupied_Lots;
+            existing.BasePrice = updated.BasePrice;
+
+            // Save changes (existing is already tracked!)
             return save();
         }
+
     }
 }

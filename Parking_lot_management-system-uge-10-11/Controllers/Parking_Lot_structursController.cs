@@ -170,7 +170,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return StatusCode(403, "Permission denied");
             }
 
-            parking_Lot_StructursRepository.Updateparking_Lot_Structur(parking);
+            parking_Lot_StructursRepository.Updateparking_Lot_Structur(parking_Lot_StructurToUpdate, parking);
             return Ok("parking Lot Structur Successfully Updated");
         }
 

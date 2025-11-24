@@ -1,5 +1,10 @@
-<nav class="topbar">
+<nav class="topbar" *ngIf="!hideToolbar">
+  
   <div class="logo">Parking System</div>
+<label>
+  <input type="checkbox" [(ngModel)]="hideToolbar">
+  Hide toolbar
+</label>
 
   <div class="nav-links">
     <button class="button" style="background-color:#1E90FF; color:white" 
@@ -14,10 +19,6 @@
 
     <button class="button" style="background-color:#1E90FF; color:white" 
             mat-flat-button (click)="onButtonClick('Users')">
-      Users
-    </button>
-    <button class="button" style="background-color:#1E90FF; color:white" 
-            mat-flat-button (click)="logout()">logout
       Users
     </button>
 
@@ -36,6 +37,13 @@
         <button class="button" style="background-color:#1E90FF; color:white" 
                 mat-flat-button (click)="onButtonClick('carout')">
           Cars going
+        </button>
+        <button class="button" style="background-color:#1E90FF; color:white" 
+                mat-flat-button (click)="onButtonClick('userlogin')">
+          login
+        </button>
+            <button class="button" style="background-color:#1E90FF; color:white" 
+            mat-flat-button (click)="logout()">logout
         </button>
       </div>
     </div>
