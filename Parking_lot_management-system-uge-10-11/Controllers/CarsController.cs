@@ -26,6 +26,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/Cars/CarsIn/{Parking_lot_Structur_ID}/{License_plate}/{lottype}/")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CarsIn(int Parking_lot_Structur_ID, string License_plate, int lottype)
         {
             if (Parking_lot_Structur_ID == 0 || License_plate == null || lottype == 0)
@@ -75,6 +76,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [HttpPut("/Cars/CarsOut/{Parking_lot_Structur_ID}/{License_plate}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize]
         public IActionResult CarsOut(int Parking_lot_Structur_ID, string License_plate)
         {
             if (Parking_lot_Structur_ID == 0 || License_plate == null)
