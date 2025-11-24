@@ -1,1 +1,43 @@
-<p>toolbarcomponent works!</p>
+<nav class="topbar">
+  <div class="logo">Parking System</div>
+
+  <div class="nav-links">
+    <button class="button" style="background-color:#1E90FF; color:white" 
+            mat-flat-button (click)="onButtonClick('ParkingStructur')">
+      ParkingStructur
+    </button>
+
+    <button class="button" style="background-color:#1E90FF; color:white" 
+            mat-flat-button (click)="onButtonClick('LotsHsitory')">
+      LotsHsitory
+    </button>
+
+    <button class="button" style="background-color:#1E90FF; color:white" 
+            mat-flat-button (click)="onButtonClick('Users')">
+      Users
+    </button>
+    <button class="button" style="background-color:#1E90FF; color:white" 
+            mat-flat-button (click)="logout()">logout
+      Users
+    </button>
+
+    <!-- ▼ Dropdown Menu -->
+    <div class="dropdown">
+      <button class="button dropbtn" style="background-color:#1E90FF; color:white" mat-flat-button>
+        More ▼
+      </button>
+
+      <div class="dropdown-content">
+        <button class="button" style="background-color:#1E90FF; color:white" 
+                mat-flat-button (click)="onButtonClick('carin')">
+          cars comming
+        </button>
+
+        <button class="button" style="background-color:#1E90FF; color:white" 
+                mat-flat-button (click)="onButtonClick('carout')">
+          Cars going
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

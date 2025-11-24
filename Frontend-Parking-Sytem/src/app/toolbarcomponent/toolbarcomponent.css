@@ -1,0 +1,54 @@
+.topbar {
+  width: auto;
+  height: 60px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.topbar .logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0; /* Align to right edge of dropdown button */
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Buttons inside dropdown should stretch to full width */
+.dropdown-content .button {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.dropdown-content .button:last-child {
+  margin-bottom: 0;
+}

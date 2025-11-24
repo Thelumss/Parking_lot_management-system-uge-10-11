@@ -1,11 +1,34 @@
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import { AuthService } from '../Services/auth-service';
+import { UsersService } from '../Services/users-service';
 
 @Component({
   selector: 'app-toolbarcomponent',
-  imports: [],
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatCardModule
+  ],
   templateUrl: './toolbarcomponent.html',
   styleUrl: './toolbarcomponent.css',
 })
 export class Toolbarcomponent {
 
+onButtonClick(buttonName: string) {
+    this.router.navigate([buttonName.toLocaleLowerCase()]);
+  }
+    constructor(public router: Router,private authService: AuthService) {
+  }
+logout(){
+  this.authService.logout();
+}
 }
