@@ -1,21 +1,29 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-table-componet',
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, NgIf],
   templateUrl: './dynamic-table-componet.html',
   styleUrl: './dynamic-table-componet.css',
 })
 export class DynamicTableComponet {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  currentUrl: string = '';
+  
+
+  constructor(private router: Router) { }
 
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Output() editRow = new EventEmitter<any>();  // Emit the row to parent for editing
+  @Output() deleteRow = new EventEmitter<any>();
   @Output() rowDoubleClicked = new EventEmitter<any>();
+
+  ngOnInit(): void {
+    this.currentUrl = this.router.url;
+  }
 
   // Pagination Variables
   currentPage: number = 1;
@@ -77,6 +85,10 @@ export class DynamicTableComponet {
   // Editable Cells Logic
   onEdit(row: any) {
     this.editRow.emit(row);  // Emit the row data to parent component
+  }
+
+  onDelete(row: any) {
+    this.deleteRow.emit(row);  // Emit the row data to parent component
   }
 
   onRowDoubleClick(row: any) {

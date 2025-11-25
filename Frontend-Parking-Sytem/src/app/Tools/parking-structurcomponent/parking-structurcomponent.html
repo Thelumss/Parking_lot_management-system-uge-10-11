@@ -2,6 +2,7 @@
    [columns]="['name', 'adress', 'total_Available_Lots', 'total_Occupied_Lots', 'basePrice']"
    [data]="products"
    (editRow)="onEdit($event)"
+   (deleteRow)="onDelete($event)"
    (rowDoubleClicked)="onRowDoubleClick($event)">
 </app-dynamic-table-componet>
 

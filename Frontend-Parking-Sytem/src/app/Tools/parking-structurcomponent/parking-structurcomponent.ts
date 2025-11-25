@@ -31,9 +31,6 @@ export interface Parking_strutur {
   styleUrl: './parking-structurcomponent.css',
 })
 export class ParkingStructurcomponent {
-
-
-
   // the constructor createing ProductApiCallServices for use  
   constructor(private api: ParkingStrucursService, private dialog: MatDialog, private router: Router) { }
 
@@ -80,7 +77,7 @@ export class ParkingStructurcomponent {
     });
   }
 
-  Delete(element: any) {
+  onDelete(element: any) {
     if (!confirm(`Are you sure you want to delete "${element.name}"?`)) {
       return; // user canceled
     }

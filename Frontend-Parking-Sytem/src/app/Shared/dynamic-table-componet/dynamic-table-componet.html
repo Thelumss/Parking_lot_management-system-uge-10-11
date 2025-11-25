@@ -15,17 +15,33 @@
             </span>
           </span>
         </th>
-        <!-- Add Actions Column -->
-        <th class="p-2 font-semibold border border-gray-300">Actions</th>
+
+        <!-- Conditionally render Actions column if URL is '/parkingstructur' -->
+        <th *ngIf="currentUrl.includes('/parkingstructur')" class="p-2 font-semibold border border-gray-300">Actions</th>
       </tr>
     </thead>
-    <tbody>
+
+    <!-- Table Body -->
+    <tbody *ngIf="!currentUrl.includes('/parkingstructur')">
       <tr *ngFor="let row of paginatedData" (dblclick)="onRowDoubleClick(row)">
         <td *ngFor="let col of columns" class="p-2 border border-gray-300">
           {{ row[col] }}
         </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="currentUrl.includes('/parkingstructur')">
+      <tr *ngFor="let row of paginatedData" (dblclick)="onRowDoubleClick(row)">
+        <td *ngFor="let col of columns" class="p-2 border border-gray-300">
+          {{ row[col] }}
+        </td>
+        
+        <!-- Actions column only visible when URL contains '/parkingstructur' -->
         <td class="p-2 border border-gray-300">
           <button (click)="onEdit(row)" class="btn-edit">Edit</button>
+        </td>
+        <td class="p-2 border border-gray-300">
+          <button (click)="onDelete(row)" class="btn-edit">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -33,9 +49,8 @@
 
   <!-- Pagination Controls -->
   <div class="pagination mt-4">
-    <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
-      (click)="goToPage(pageIndex + 1)" [class.active]="currentPage === pageIndex + 1"
-      class="page-button">
+    <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index" (click)="goToPage(pageIndex + 1)"
+      [class.active]="currentPage === pageIndex + 1" class="page-button">
       {{ pageIndex + 1 }}
     </button>
   </div>
