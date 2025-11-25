@@ -1,0 +1,42 @@
+<!-- Dynamic Table Template -->
+<div class="table-container">
+  <!-- Search Filter -->
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="search-input" />
+
+  <!-- Table -->
+  <table class="table-auto w-full border-collapse border border-gray-300">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns" class="p-2 font-semibold border border-gray-300">
+          <span (click)="sortData(col)" class="cursor-pointer">
+            {{ col }}
+            <span *ngIf="sortColumn === col">
+              ({{ sortDirection === 'asc' ? '↑' : '↓' }})
+            </span>
+          </span>
+        </th>
+        <!-- Add Actions Column -->
+        <th class="p-2 font-semibold border border-gray-300">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedData" (dblclick)="onRowDoubleClick(row)">
+        <td *ngFor="let col of columns" class="p-2 border border-gray-300">
+          {{ row[col] }}
+        </td>
+        <td class="p-2 border border-gray-300">
+          <button (click)="onEdit(row)" class="btn-edit">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination mt-4">
+    <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+      (click)="goToPage(pageIndex + 1)" [class.active]="currentPage === pageIndex + 1"
+      class="page-button">
+      {{ pageIndex + 1 }}
+    </button>
+  </div>
+</div>
