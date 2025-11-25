@@ -6,6 +6,7 @@ import { UserLogincomponent } from './Tools/user-logincomponent/user-logincompon
 import { UsersUserscomponent } from './Tools/users-userscomponent/users-userscomponent';
 import { CarIncomponent } from './CarIn_CarsOut/car-incomponent/car-incomponent';
 import { CarOutcomponent } from './CarIn_CarsOut/car-outcomponent/car-outcomponent';
+import { ParkingListComponent } from './parking-list-component/parking-list-component';
 
 export const routes: Routes = [
     {path: "parkingstructur", component: ParkingStructurcomponent},
@@ -13,7 +14,9 @@ export const routes: Routes = [
     {path: "userlogin", component: UserLogincomponent},
     {path: "users", component: UsersUserscomponent},
 
-    {path: "carin", component: CarIncomponent},
+    { path: 'carin', component: ParkingListComponent },
+
+    {path: "form/:id", component: CarIncomponent},
     {path: "carout", component: CarOutcomponent},
 
     {

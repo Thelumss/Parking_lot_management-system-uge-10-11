@@ -1,0 +1,12 @@
+<div class="parking-list">
+  <h2>Select a Parking Structure</h2>
+  <ul>
+    <!-- Loop through the parkingStructures array -->
+    <li *ngFor="let parking of parkingStructures">
+      <!-- Ensure you're passing parking.id to the onSelectParkingStructure method -->
+      <button (click)="onSelectParkingStructure(parking.id)">
+        {{ parking.name }}
+      </button>
+    </li>
+  </ul>
+</div>

@@ -1,1 +1,28 @@
-<p>car-incomponent works!</p>
+<div class="form-container">
+  <h2>Car Information</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="numberPlate">Number Plate:</label>
+      <input type="text" id="numberPlate" [(ngModel)]="numberPlate" name="numberPlate" required />
+    </div>
+
+    <div class="form-group">
+      <label>Car Type:</label>
+      <div>
+        <input type="radio" id="standard" name="carType" value="standard" [(ngModel)]="carType" />
+        <label for="standard">Standard</label>
+      </div>
+      <div>
+        <input type="radio" id="handicapped" name="carType" value="handicapped" [(ngModel)]="carType" />
+        <label for="handicapped">Handicapped</label>
+      </div>
+      <div>
+        <input type="radio" id="ev" name="carType" value="ev" [(ngModel)]="carType" />
+        <label for="ev">EV</label>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!numberPlate">Submit</button>
+  </form>
+</div>
