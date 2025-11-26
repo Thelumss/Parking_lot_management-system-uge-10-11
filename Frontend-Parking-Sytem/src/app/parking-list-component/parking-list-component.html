@@ -4,7 +4,7 @@
     <!-- Loop through the parkingStructures array -->
     <li *ngFor="let parking of parkingStructures">
       <!-- Ensure you're passing parking.id to the onSelectParkingStructure method -->
-      <button (click)="onSelectParkingStructure(parking.id)">
+      <button (click)="onSelectParkingStructure(parking.parking_lot_Structur_ID)">
         {{ parking.name }}
       </button>
     </li>

@@ -69,7 +69,6 @@ export class ParkingStructurcomponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this.api.UpdateParking_Lot_Structur(result).subscribe(() => {
           this.loadParkingLotStrucurs();  // Reload the updated data
         });

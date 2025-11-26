@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CarsService } from '../../Services/cars-service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-car-incomponent',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule,NgIf],
   templateUrl: './car-incomponent.html',
   styleUrl: './car-incomponent.css',
 })
@@ -14,7 +17,11 @@ export class CarIncomponent {
   carType: string = 'standard'; // Default car type
   parkingStructureId: string = '';
 
-  constructor(private route: ActivatedRoute) { }
+  showMessage = false;
+  messageText = '';
+  isSuccess = true;
+
+  constructor(private route: ActivatedRoute, private carin: CarsService) { }
 
   ngOnInit(): void {
     // Capture the parking structure ID from the URL parameter
@@ -23,10 +30,26 @@ export class CarIncomponent {
     });
   }
 
-  // Submit handler for the form
-  onSubmit() {
-    console.log('Number Plate:', this.numberPlate);
-    console.log('Lot Type:', this.carType);
-    console.log('Parking Structure ID:', this.parkingStructureId);
+// Submit handler for the form
+onSubmit() {
+    this.carin.carsin(+this.parkingStructureId, this.numberPlate, +this.carType)
+      .subscribe({
+        next: () => {
+          this.showTempMessage('Car successfully checked In ✅', true);
+        },
+        error: () => {
+          this.showTempMessage('Checkout failed ❌', false);
+        }
+      });
+    }
+
+showTempMessage(text: string, success: boolean) {
+    this.messageText = text;
+    this.isSuccess = success;
+    this.showMessage = true;
+
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 5000); // 5 seconds
   }
 }

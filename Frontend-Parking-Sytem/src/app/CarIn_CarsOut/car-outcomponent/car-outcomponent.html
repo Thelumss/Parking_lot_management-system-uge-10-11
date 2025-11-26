@@ -1,1 +1,15 @@
-<p>car-outcomponent works!</p>
+<div class="form-container">
+  <h2>Car Information</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="numberPlate">Number Plate:</label>
+      <input type="text" id="numberPlate" [(ngModel)]="numberPlate" name="numberPlate" required />
+    </div>
+    <button type="submit" [disabled]="!numberPlate">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="showMessage" class="message-box" [class.success]="isSuccess" [class.error]="!isSuccess">
+  {{ messageText }}
+</div>

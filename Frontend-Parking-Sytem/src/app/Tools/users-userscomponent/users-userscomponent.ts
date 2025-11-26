@@ -47,7 +47,6 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
   // CreateNewUser creates a user by caling the CreateNewUser function on adminService that makes a API call
   CreateNewUser() {
     // for API it gets the values from createAdminForm
-    console.log(this.createAdminForm.value);
     (this.authService.createUser(this.createAdminForm.value)).subscribe(() => {
       this.createAdminForm.reset();
     });

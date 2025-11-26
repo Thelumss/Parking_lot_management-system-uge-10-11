@@ -10,19 +10,23 @@
     <div class="form-group">
       <label>Car Type:</label>
       <div>
-        <input type="radio" id="standard" name="carType" value="standard" [(ngModel)]="carType" />
+        <input type="radio" id="standard" name="carType" value="1" [(ngModel)]="carType" />
         <label for="standard">Standard</label>
       </div>
       <div>
-        <input type="radio" id="handicapped" name="carType" value="handicapped" [(ngModel)]="carType" />
+        <input type="radio" id="handicapped" name="carType" value="3" [(ngModel)]="carType" />
         <label for="handicapped">Handicapped</label>
       </div>
       <div>
-        <input type="radio" id="ev" name="carType" value="ev" [(ngModel)]="carType" />
+        <input type="radio" id="ev" name="carType" value="2" [(ngModel)]="carType" />
         <label for="ev">EV</label>
       </div>
     </div>
 
     <button type="submit" [disabled]="!numberPlate">Submit</button>
   </form>
+</div>
+
+<div *ngIf="showMessage" class="message-box" [class.success]="isSuccess" [class.error]="!isSuccess">
+  {{ messageText }}
 </div>
