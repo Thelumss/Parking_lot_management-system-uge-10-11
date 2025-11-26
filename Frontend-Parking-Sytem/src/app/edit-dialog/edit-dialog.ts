@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { ParkingStrucursService } from '../Services/parking-strucurs-service';
+import { ParkingStrucursService } from '../../Services/parking-strucurs-service';
 
 @Component({
   selector: 'app-edit-dialog',

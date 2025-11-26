@@ -9,8 +9,7 @@ export class AuthService {
 
   private apiUrl = 'https://localhost:7057/api/Auth/';
 
-  private isLoggedIn = new BehaviorSubject<boolean>(false);
-  loggedIn = this.isLoggedIn.asObservable();
+  loggedIn = new BehaviorSubject<boolean>(false);
   
   constructor(private http: HttpClient) {
     this.checkToken();
@@ -19,7 +18,7 @@ export class AuthService {
   private checkToken() {
     if (typeof localStorage !== 'undefined') {
       const token = localStorage.getItem('JWT_Token');
-      this.isLoggedIn.next(!!token); // true if token exists
+      this.loggedIn.next(!!token); // true if token exists
     }
   }
 
@@ -28,12 +27,12 @@ export class AuthService {
       .pipe(
         map(response => {
           localStorage.setItem('JWT_Token', response.access_token);
-          this.setData(true);
+          this.loggedIn.next(true);
           return true;
         }),
         catchError(error => {
           console.log(error);
-          this.setData(false);
+          this.loggedIn.next(false);
           return of(false);
         })
       );
@@ -43,11 +42,7 @@ export class AuthService {
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('JWT_Token');
     }
-    this.isLoggedIn.next(false);
-  }
-
-  setData(data: boolean) {
-    this.isLoggedIn.next(data);
+    this.loggedIn.next(false);
   }
 
   getToken(): string | null {

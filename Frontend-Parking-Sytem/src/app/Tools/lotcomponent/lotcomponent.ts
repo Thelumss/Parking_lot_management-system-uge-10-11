@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LotService } from '../../Services/lot-service';
+import { LotService } from '../../../Services/lot-service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';

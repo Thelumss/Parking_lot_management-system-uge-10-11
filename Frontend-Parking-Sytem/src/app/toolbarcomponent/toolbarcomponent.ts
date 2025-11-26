@@ -5,7 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { AuthService } from '../Services/auth-service';
+import { AuthService } from '../../Services/auth-service';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

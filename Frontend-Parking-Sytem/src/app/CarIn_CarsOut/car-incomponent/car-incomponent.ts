@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CarsService } from '../../Services/cars-service';
+import { CarsService } from '../../../Services/cars-service';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-car-incomponent',
   standalone: true,
-  imports: [FormsModule,NgIf],
+  imports: [FormsModule, NgIf],
   templateUrl: './car-incomponent.html',
   styleUrl: './car-incomponent.css',
 })
@@ -30,20 +30,25 @@ export class CarIncomponent {
     });
   }
 
-// Submit handler for the form
-onSubmit() {
+  // Submit handler for the form
+  onSubmit() {
     this.carin.carsin(+this.parkingStructureId, this.numberPlate, +this.carType)
       .subscribe({
         next: () => {
+          this.resetForm();
           this.showTempMessage('Car successfully checked In ✅', true);
         },
         error: () => {
           this.showTempMessage('Checkout failed ❌', false);
         }
       });
-    }
+  }
+  resetForm() {
+    this.numberPlate = '';
+    this.carType = 'standard'; // reset to default radio (Standard)
+  }
 
-showTempMessage(text: string, success: boolean) {
+  showTempMessage(text: string, success: boolean) {
     this.messageText = text;
     this.isSuccess = success;
     this.showMessage = true;

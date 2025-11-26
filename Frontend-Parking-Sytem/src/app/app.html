@@ -1,3 +1,5 @@
-<app-toolbarcomponent></app-toolbarcomponent>
-<router-outlet></router-outlet>
-
+<app-user-logincomponent *ngIf="!isLoggedIn()"></app-user-logincomponent>
+<div *ngIf="isLoggedIn()">
+    <app-toolbarcomponent></app-toolbarcomponent>
+    <router-outlet></router-outlet>
+</div>

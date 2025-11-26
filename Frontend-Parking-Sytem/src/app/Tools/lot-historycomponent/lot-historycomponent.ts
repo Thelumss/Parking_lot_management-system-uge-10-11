@@ -4,7 +4,7 @@ import { MatInput } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { LotHistoryService } from '../../Services/lot-history-service';
+import { LotHistoryService } from '../../../Services/lot-history-service';
 import { DynamicTableComponet } from "../../Shared/dynamic-table-componet/dynamic-table-componet";
 
 export interface Product {

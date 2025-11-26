@@ -1,9 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../Services/auth-service';
+import { AuthService } from '../../../Services/auth-service';
 import { Subject, takeUntil } from 'rxjs';
-import { UsersService } from '../../Services/users-service';
+import { UsersService } from '../../../Services/users-service';
 import { SimpleDynamicTableComponet } from "../../Shared/simple-dynamic-table-componet/simple-dynamic-table-componet";
 
 export interface Users {

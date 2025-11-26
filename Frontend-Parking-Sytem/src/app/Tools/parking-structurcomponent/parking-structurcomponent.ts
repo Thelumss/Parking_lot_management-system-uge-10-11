@@ -5,7 +5,7 @@ import { MatInput } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ParkingStrucursService } from '../../Services/parking-strucurs-service';
+import { ParkingStrucursService } from '../../../Services/parking-strucurs-service';
 import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
 import { EditDialog } from '../../edit-dialog/edit-dialog';

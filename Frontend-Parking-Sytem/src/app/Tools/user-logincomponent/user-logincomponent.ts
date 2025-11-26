@@ -5,7 +5,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { AuthService } from '../../Services/auth-service';
+import { AuthService } from '../../../Services/auth-service';
 
 @Component({
   selector: 'app-user-logincomponent',
