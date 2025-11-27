@@ -34,12 +34,12 @@ export class CarIncomponent {
   onSubmit() {
     this.carin.carsin(+this.parkingStructureId, this.numberPlate, +this.carType)
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.resetForm();
-          this.showTempMessage('Car successfully checked In ✅', true);
+          this.showTempMessage('Car successfully checked In ✅ go to lot '+res.lotName, true);
         },
         error: () => {
-          this.showTempMessage('Checkout failed ❌', false);
+          this.showTempMessage('Checkin failed ❌', false);
         }
       });
   }
