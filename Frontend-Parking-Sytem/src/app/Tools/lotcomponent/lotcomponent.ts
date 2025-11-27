@@ -20,7 +20,7 @@ export interface Lot {
 @Component({
   selector: 'app-lotcomponent',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatInput, MatFormFieldModule, DynamicTableComponet],
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, DynamicTableComponet],
   templateUrl: './lotcomponent.html',
   styleUrl: './lotcomponent.css',
 })
