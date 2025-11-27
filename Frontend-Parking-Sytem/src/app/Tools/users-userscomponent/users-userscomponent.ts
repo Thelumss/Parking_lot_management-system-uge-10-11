@@ -80,7 +80,6 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
     this.userService.getUsersbyOrganisation().subscribe({
       next: (res) => {
         this.users = res;
-        console.log(this.users);
       },
       error: (err) => {
         console.error('Error fetching profiles:', err);
