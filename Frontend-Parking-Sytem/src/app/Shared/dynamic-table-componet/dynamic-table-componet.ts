@@ -47,13 +47,19 @@ export class DynamicTableComponet {
   }
 
   // Filtered Data (search filter)
-  get filteredData() {
-    return this.data.filter((row) =>
-      this.columns.some((col) =>
-        row[col].toString().toLowerCase().includes(this.searchTerm.toLowerCase())
-      )
-    );
-  }
+get filteredData() {
+  const term = this.searchTerm.toLowerCase();
+
+  return this.data.filter(row =>
+    this.columns.some(col => {
+      const value = row[col];
+
+      if (value === null || value === undefined) return false;
+
+      return String(value).toLowerCase().includes(term);
+    })
+  );
+}
 
   get totalPages() {
     return Math.ceil(this.filteredData.length / this.pageSize);
