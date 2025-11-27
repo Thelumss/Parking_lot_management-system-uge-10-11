@@ -1,8 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ParkingStrucursService } from '../../Services/parking-strucurs-service';
-
+import { ParkingStrucursService } from '../../../Services/parking-strucurs-service';
 @Component({
   selector: 'app-parking-list-component',
   imports: [NgFor],

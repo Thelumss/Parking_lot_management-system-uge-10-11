@@ -6,7 +6,7 @@ import { UserLogincomponent } from './Tools/user-logincomponent/user-logincompon
 import { UsersUserscomponent } from './Tools/users-userscomponent/users-userscomponent';
 import { CarIncomponent } from './CarIn_CarsOut/car-incomponent/car-incomponent';
 import { CarOutcomponent } from './CarIn_CarsOut/car-outcomponent/car-outcomponent';
-import { ParkingListComponent } from './parking-list-component/parking-list-component';
+import { ParkingListComponent } from './CarIn_CarsOut/parking-list-component/parking-list-component';
 
 export const routes: Routes = [
     {path: "parkingstructur", component: ParkingStructurcomponent},
