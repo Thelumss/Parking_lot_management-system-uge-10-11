@@ -19,7 +19,7 @@ export interface Product {
 @Component({
   selector: 'app-lot-historycomponent',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatInput, MatFormFieldModule, DynamicTableComponet],
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, DynamicTableComponet],
   templateUrl: './lot-historycomponent.html',
   styleUrl: './lot-historycomponent.css',
 })
