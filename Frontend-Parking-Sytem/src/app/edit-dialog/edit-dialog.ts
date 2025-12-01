@@ -1,40 +1,69 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { ParkingStrucursService } from '../../Services/parking-strucurs-service';
+import { CommonModule, NgIf } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-edit-dialog',
   standalone: true,
-  imports: [MatFormField,MatLabel,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    NgIf,
+  ],
   templateUrl: './edit-dialog.html',
-  styleUrl: './edit-dialog.css',
+  styleUrls: ['./edit-dialog.css'],
 })
 export class EditDialog {
+
   form: FormGroup;
+  entries: { key: string; label: string; value: any; readonly: boolean }[] = [];
+  editableEntries: { key: string; label: string; value: any }[] = [];
+  readonlyKeys = ['total_Available_Lots', 'total_Occupied_Lots'];
 
   constructor(
     private fb: FormBuilder,
-    private parkingservice: ParkingStrucursService,
-    public dialogRef: MatDialogRef<EditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private dialogRef: MatDialogRef<EditDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { row: any; columns: any[],title: string }
   ) {
-    this.form = this.fb.group({
-      parking_lot_Structur_ID: [data.parking_lot_Structur_ID],
-      name: [data.name],
-      adress: [data.adress],
-      total_Available_Lots: [data.total_Available_Lots],
-      total_Occupied_Lots: [data.total_Occupied_Lots],
-      basePrice: [data.basePrice]
+    const row = data.row;
+    const columns = data.columns;
+
+    // Build entries with readonly info
+    this.entries = columns.map(col => ({
+      key: col.key,
+      label: col.label,
+      value: row[col.key],
+      readonly: this.readonlyKeys.includes(col.key)
+    }));
+
+    this.editableEntries = this.entries.filter(e => !e.readonly);
+    // Build form controls for editable fields only
+    const controls: any = {};
+    this.entries.forEach(e => {
+      if (!e.readonly) {
+        controls[e.key] = this.fb.control(e.value); // default value = current value
+      }
     });
+
+    this.form = this.fb.group(controls);
   }
 
   save() {
-    this.dialogRef.close(this.form.value);
+    if (this.form.valid) {
+      // Combine readonly values with form values before closing
+      const result = { ...this.data.row, ...this.form.value };
+      this.dialogRef.close(result);
+    }
   }
 
-  close() {
-    this.dialogRef.close();
+  cancel() {
+    this.dialogRef.close(null);
   }
 }

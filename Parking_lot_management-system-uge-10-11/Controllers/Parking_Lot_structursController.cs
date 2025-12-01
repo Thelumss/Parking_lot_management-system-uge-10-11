@@ -120,11 +120,6 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         {
             var OrganisationId = User.FindFirst("OrganisationId")?.Value;
 
-            if (parking.OrganisationId != int.Parse(OrganisationId))
-            {
-                return StatusCode(403, "Permission denied");
-            }
-
             if (parking == null)
             {
                 return BadRequest(ModelState);
@@ -144,6 +139,8 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             {
                 ModelState.AddModelError("", "Can't give id");
             }
+
+            parking.OrganisationId = int.Parse(OrganisationId);
 
             parking_Lot_StructursRepository.CreateParking_Lot_Structur(parking);
 

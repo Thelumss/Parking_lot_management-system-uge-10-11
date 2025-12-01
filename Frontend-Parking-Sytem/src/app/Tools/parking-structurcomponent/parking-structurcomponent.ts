@@ -33,11 +33,11 @@ export class ParkingStructurcomponent {
   constructor(private api: ParkingStrucursService, private dialog: MatDialog, private router: Router) { }
 
   displayedColumns = [
-    {key: 'name', label: 'Name'},
-    {key: 'adress', label: 'Adress'},
-    {key: 'total_Available_Lots', label: 'Total available lots'},
-    {key: 'total_Occupied_Lots', label: 'Total occupied lots'},
-    {key: 'basePrice', label: 'BasePrice'},
+    { key: 'name', label: 'Name', readonly: false },
+    { key: 'adress', label: 'Adress', readonly: false },
+    { key: 'total_Available_Lots', label: 'Total available lots', readonly: true },
+    { key: 'total_Occupied_Lots', label: 'Total occupied lots', readonly: true },
+    { key: 'basePrice', label: 'BasePrice', readonly: false },
 
   ];
 
@@ -62,18 +62,78 @@ export class ParkingStructurcomponent {
 
   onEdit(row: any) {
     const dialogRef = this.dialog.open(EditDialog, {
-      width: '400px',
-      data: row,
+      width: '600px',      // wider so fields fit
+      maxWidth: '90vw',    // responsive on small screens
+      height: 'auto',      // height adjusts automatically
+      maxHeight: '90vh',   // don't overflow the viewport
+      data: {
+        row: row,
+        columns: this.displayedColumns,
+        title: 'Edit Entry',
+      },
+      panelClass: 'custom-dialog-container' // optional custom CSS class
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.api.UpdateParking_Lot_Structur(result).subscribe(() => {
-          this.loadParkingLotStrucurs();  // Reload the updated data
+        const newParkingLot: Parking_strutur = {
+          parking_lot_Structur_ID: result.row.parking_lot_Structur_ID,
+          name: result.name ?? result.row.name,
+          adress: result.adress ?? result.row.adress,
+          basePrice: result.basePrice ?? result.row.basePrice,
+          total_Available_Lots: result.row.total_Available_Lots,
+          total_Occupied_Lots: result.row.total_Occupied_Lots
+        };
+
+        this.api.UpdateParking_Lot_Structur(newParkingLot).subscribe(() => {
+          this.loadParkingLotStrucurs();
         });
       }
     });
+
   }
+
+  onCreate(defaultName: string = '') {
+  const dialogRef = this.dialog.open(EditDialog, {
+    width: '600px',
+    maxWidth: '90vw',
+    height: 'auto',
+    maxHeight: '90vh',
+    data: {
+      row: {
+        name: '',
+        adress: '',
+        basePrice: 0,
+        total_Available_Lots: 0,
+        total_Occupied_Lots: 0
+      },
+      columns: this.displayedColumns,
+      title: 'Create',
+      isNew: true
+    },
+    panelClass: 'custom-dialog-container'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      const newParkingLot: Parking_strutur = {
+        parking_lot_Structur_ID: 0, // backend should assign ID
+        name: result.name,
+        adress: result.adress,
+        basePrice: result.basePrice,
+        total_Available_Lots: 0,
+        total_Occupied_Lots: 0
+      };
+
+      this.api.CreateParking_Lot_Structur(newParkingLot).subscribe(() => {
+      this.loadParkingLotStrucurs();
+      });
+    }
+  });
+}
+
+
+
 
   onDelete(element: any) {
     if (!confirm(`Are you sure you want to delete "${element.name}"?`)) {

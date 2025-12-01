@@ -12,3 +12,27 @@
 .clickable-row:hover {
   background: #e8f3ff;
 }
+
+/* styles.css or component CSS with ::ng-deep */
+::ng-deep .custom-dialog-container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  max-height: 90vh; /* prevent overflow beyond viewport */
+  overflow-y: auto; /* enable scrolling if content is tall */
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  gap: 8px;
+}
+

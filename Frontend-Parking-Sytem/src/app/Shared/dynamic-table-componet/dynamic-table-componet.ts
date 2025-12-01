@@ -89,9 +89,12 @@ get filteredData() {
   }
 
   // Editable Cells Logic
-  onEdit(row: any) {
-    this.editRow.emit(row);  // Emit the row data to parent component
-  }
+onEdit(row: any) {
+  this.editRow.emit({
+    row: row,
+    columns: this.columns   // include columns here
+  });
+}
 
   onDelete(row: any) {
     this.deleteRow.emit(row);  // Emit the row data to parent component
