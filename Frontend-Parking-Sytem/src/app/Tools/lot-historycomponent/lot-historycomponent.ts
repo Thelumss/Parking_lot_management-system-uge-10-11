@@ -12,7 +12,7 @@ export interface LotHistory {
   entry_time: number;
   exit_time: number;
   charged: number;
-  active: boolean;
+  active: string;
 
 }
 
@@ -52,8 +52,11 @@ export class LotHistorycomponent {
         this.products = res.map((lotHistory: LotHistory) => {
           return {
             ...lotHistory,
-            entry_time: new Date(lotHistory.entry_time).toLocaleString(),  // No need for *1000 if it's already in ms
-            exit_time: lotHistory.exit_time ? new Date(lotHistory.exit_time).toLocaleString() : 'N/A',  // Handle null exit_time
+            entry_time: new Date(lotHistory.entry_time).toLocaleString(),
+            exit_time: lotHistory.exit_time
+              ? new Date(lotHistory.exit_time).toLocaleString()
+              : 'N/A',
+            active: lotHistory.active ? 'Yes' : 'No',  // <-- Convert boolean to string
           };
         });
       },
