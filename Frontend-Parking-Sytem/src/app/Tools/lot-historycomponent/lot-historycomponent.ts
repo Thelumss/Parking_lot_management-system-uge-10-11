@@ -7,7 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { LotHistoryService } from '../../../Services/lot-history-service';
 import { DynamicTableComponet } from "../../Shared/dynamic-table-componet/dynamic-table-componet";
 
-export interface Product {
+export interface LotHistory {
   license_PLate_Numbers: string;
   entry_time: number;
   exit_time: number;
@@ -19,7 +19,7 @@ export interface Product {
 @Component({
   selector: 'app-lot-historycomponent',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, DynamicTableComponet],
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatInput, MatFormFieldModule, DynamicTableComponet],
   templateUrl: './lot-historycomponent.html',
   styleUrl: './lot-historycomponent.css',
 })
@@ -29,7 +29,13 @@ export class LotHistorycomponent {
   constructor(private api: LotHistoryService) { }
 
 
-  displayedColumns: string[] = ['license_PLate_Numbers', 'entry_time', 'exit_time','charged','active'];
+  displayedColumns = [
+    { key: 'license_PLate_Numbers', label: 'License plate numbers' },
+    { key: 'entry_time', label: 'Entry time' },
+    { key: 'exit_time', label: 'Exit time' },
+    { key: 'charged', label: 'Charged' },
+    { key: 'active', label: 'Active' },
+  ];
 
   products: any[] = [];
 
@@ -39,15 +45,15 @@ export class LotHistorycomponent {
   }
 
   // this makes a api call that get all of the Product information that we would want
-loadLotHistory() {
+  loadLotHistory() {
     this.api.getparking_Lot_Structur().subscribe({
       next: res => {
         // Convert entry_time and exit_time from milliseconds to human-readable date
-        this.products = res.map((product: Product) => {
+        this.products = res.map((lotHistory: LotHistory) => {
           return {
-            ...product,
-            entry_time: new Date(product.entry_time).toLocaleString(),  // No need for *1000 if it's already in ms
-            exit_time: product.exit_time ? new Date(product.exit_time).toLocaleString() : 'N/A',  // Handle null exit_time
+            ...lotHistory,
+            entry_time: new Date(lotHistory.entry_time).toLocaleString(),  // No need for *1000 if it's already in ms
+            exit_time: lotHistory.exit_time ? new Date(lotHistory.exit_time).toLocaleString() : 'N/A',  // Handle null exit_time
           };
         });
       },

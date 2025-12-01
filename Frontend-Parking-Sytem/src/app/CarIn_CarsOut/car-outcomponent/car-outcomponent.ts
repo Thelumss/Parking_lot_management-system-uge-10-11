@@ -32,9 +32,10 @@ export class CarOutcomponent {
   onSubmit() {
     this.carin.carsout(+this.parkingStructureId, this.numberPlate)
       .subscribe({
-        next: () => {
+        next: (res) => {
+          console.log(res);
           this.resetForm();
-          this.showTempMessage('Car successfully checked out ✅', true);
+          this.showTempMessage('Car successfully checked out ✅ the price is '+res.price.toLocaleString('da-DK', { minimumFractionDigits: 2 })+" kr", true);
         },
         error: () => {
           this.showTempMessage('Checkout failed ❌', false);

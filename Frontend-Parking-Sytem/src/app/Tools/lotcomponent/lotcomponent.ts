@@ -6,7 +6,6 @@ import { MatInput } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DynamicTableComponet } from "../../Shared/dynamic-table-componet/dynamic-table-componet";
 
 export interface Lot {
@@ -25,7 +24,14 @@ export interface Lot {
   styleUrl: './lotcomponent.css',
 })
 export class Lotcomponent {
-   lotId: number = 0;
+  lotId: number = 0;
+
+    displayedColumns = [
+    {key: 'lotName', label: 'Lot name'},
+    {key: 'occupied_Status', label: 'Occupied Status'},
+    {key: 'structur_ID', label: 'Structur name'},
+    {key: 'lot_types_ID', label: 'lot types name'},
+  ];
 
   constructor(private api: LotService, private route: ActivatedRoute) { }
 

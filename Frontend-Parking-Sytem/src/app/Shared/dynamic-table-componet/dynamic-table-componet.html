@@ -8,16 +8,17 @@
     <thead>
       <tr>
         <th *ngFor="let col of columns" class="p-2 font-semibold border border-gray-300">
-          <span (click)="sortData(col)" class="cursor-pointer">
-            {{ col }}
-            <span *ngIf="sortColumn === col">
+          <span (click)="sortData(col.key)" class="cursor-pointer">
+            {{ col.label }}
+            <span *ngIf="sortColumn === col.label">
               ({{ sortDirection === 'asc' ? '↑' : '↓' }})
             </span>
           </span>
         </th>
 
         <!-- Conditionally render Actions column if URL is '/parkingstructur' -->
-        <th *ngIf="currentUrl.includes('/parkingstructur')" class="p-2 font-semibold border border-gray-300">Actions</th>
+        <th *ngIf="currentUrl.includes('/parkingstructur')" class="p-2 font-semibold border border-gray-300">Actions
+        </th>
       </tr>
     </thead>
 
@@ -25,7 +26,7 @@
     <tbody *ngIf="!currentUrl.includes('/parkingstructur')">
       <tr *ngFor="let row of paginatedData" (dblclick)="onRowDoubleClick(row)">
         <td *ngFor="let col of columns" class="p-2 border border-gray-300">
-          {{ row[col] }}
+          {{ row[col.key] }}
         </td>
       </tr>
     </tbody>
@@ -33,9 +34,9 @@
     <tbody *ngIf="currentUrl.includes('/parkingstructur')">
       <tr *ngFor="let row of paginatedData" (dblclick)="onRowDoubleClick(row)">
         <td *ngFor="let col of columns" class="p-2 border border-gray-300">
-          {{ row[col] }}
+          {{ row[col.key] }}
         </td>
-        
+
         <!-- Actions column only visible when URL contains '/parkingstructur' -->
         <td class="p-2 border border-gray-300">
           <button (click)="onEdit(row)" class="btn-edit">Edit</button>

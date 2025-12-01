@@ -15,7 +15,7 @@ export class DynamicTableComponet {
 
   constructor(private router: Router) { }
 
-  @Input() columns: string[] = [];
+  @Input() columns!: {key: string, label: string}[];
   @Input() data: any[] = [];
   @Output() editRow = new EventEmitter<any>();  // Emit the row to parent for editing
   @Output() deleteRow = new EventEmitter<any>();
@@ -52,7 +52,7 @@ get filteredData() {
 
   return this.data.filter(row =>
     this.columns.some(col => {
-      const value = row[col];
+      const value = row[col.key];
 
       if (value === null || value === undefined) return false;
 

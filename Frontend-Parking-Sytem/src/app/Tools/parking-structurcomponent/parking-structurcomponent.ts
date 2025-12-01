@@ -1,13 +1,11 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { ParkingStrucursService } from '../../../Services/parking-strucurs-service';
 import { MatDialog } from '@angular/material/dialog';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EditDialog } from '../../edit-dialog/edit-dialog';
 import { DynamicTableComponet } from "../../Shared/dynamic-table-componet/dynamic-table-componet";
 
@@ -35,11 +33,12 @@ export class ParkingStructurcomponent {
   constructor(private api: ParkingStrucursService, private dialog: MatDialog, private router: Router) { }
 
   displayedColumns = [
-    'name',
-    'adress',
-    'total_Available_Lots',
-    'total_Occupied_Lots',
-    'basePrice'
+    {key: 'name', label: 'Name'},
+    {key: 'adress', label: 'Adress'},
+    {key: 'total_Available_Lots', label: 'Total available lots'},
+    {key: 'total_Occupied_Lots', label: 'Total occupied lots'},
+    {key: 'basePrice', label: 'BasePrice'},
+
   ];
 
 
