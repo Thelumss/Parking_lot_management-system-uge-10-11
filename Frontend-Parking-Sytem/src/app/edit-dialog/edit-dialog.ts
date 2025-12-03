@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgForOf, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -16,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatDialogModule,
     NgIf,
+    NgFor,
+    MatSelectModule,
   ],
   templateUrl: './edit-dialog.html',
   styleUrls: ['./edit-dialog.css'],
@@ -23,7 +26,15 @@ import { MatInputModule } from '@angular/material/input';
 export class EditDialog {
 
   form: FormGroup;
-  entries: { key: string; label: string; value: any; readonly: boolean }[] = [];
+  entries: { 
+  key: string; 
+  label: string; 
+  value: any; 
+  readonly: boolean; 
+  type?: string; 
+  options?: {value:any; label:string}[] 
+}[] = [];
+
   editableEntries: { key: string; label: string; value: any }[] = [];
   readonlyKeys = ['total_Available_Lots', 'total_Occupied_Lots'];
 
@@ -40,7 +51,9 @@ export class EditDialog {
       key: col.key,
       label: col.label,
       value: row[col.key],
-      readonly: this.readonlyKeys.includes(col.key)
+      readonly: this.readonlyKeys.includes(col.key),
+      type: col.type,
+      options: col.options ?? []
     }));
 
     this.editableEntries = this.entries.filter(e => !e.readonly);

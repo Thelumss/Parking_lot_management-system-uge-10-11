@@ -44,7 +44,7 @@ export class Lotcomponent {
   CreaeteLotsColumns = [
     { key: 'Areaname', label: 'Areaname/Floorname' },
     { key: 'amount', label: 'Amount' },
-    { key: 'lot_types_ID', label: 'Lot types name' },
+    { key: 'lot_types_ID', label: 'Lot types name', type:'select', options:[ {value: 1, label:"Standard"},{value: 2, label:"EV"},{value: 3, label:"Handicapped"}] },
   ];
 
   constructor(private api: LotService, private route: ActivatedRoute, private dialog: MatDialog) { }
@@ -91,7 +91,7 @@ export class Lotcomponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const lotdto: lotdto = {
+        const lotdto: lotdto= {
           Areaname: result.Areaname,
           amount: result.amount,
           Structur_ID: this.ParkingLotStrucurID,

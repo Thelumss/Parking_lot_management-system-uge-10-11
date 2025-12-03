@@ -1,16 +1,22 @@
-
-<h2 class="dialog-title"> {{ data.title }}</h2>
 <form [formGroup]="form" class="dialog-form">
   <ng-container *ngFor="let field of entries">
     <div class="form-field" *ngIf="!field.readonly">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>{{ field.label }}</mat-label>
-        <input matInput [formControlName]="field.key" />
+
+        <!-- Render select if field.type === 'select' -->
+        <mat-select *ngIf="field.type === 'select'" [formControlName]="field.key">
+          <mat-option *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+
+        <!-- Otherwise render input -->
+        <input *ngIf="!field.type || field.type !== 'select'" matInput [formControlName]="field.key" />
       </mat-form-field>
     </div>
   </ng-container>
 </form>
-
 <div class="dialog-actions">
   <button (click)="cancel()" class="btn-cancel">Cancel</button>
   <button (click)="save()" class="btn-save">Save</button>
