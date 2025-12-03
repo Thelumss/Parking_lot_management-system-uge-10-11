@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Parking_lot_management_system_uge_10_11.DTO;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 using Parking_lot_management_system_uge_10_11.Repository;
@@ -60,7 +62,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             var lot = lotRepository.GetLotByparking_Lot_StructurId(parking_Lot_StructurId);
-            
+
 
             if (!ModelState.IsValid)
             {
@@ -128,7 +130,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
         [ProducesResponseType(400)]
         [Authorize]
-        public IActionResult GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status(int lotTypeId, int parking_Lot_StructurId,bool occupied_Status)
+        public IActionResult GetLotsbyLotTypeAndparking_Lot_StructurAndOccupied_Status(int lotTypeId, int parking_Lot_StructurId, bool occupied_Status)
         {
             var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(parking_Lot_StructurId);
 
@@ -204,7 +206,6 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return Ok(lot);
             }
         }
-
         [HttpPost("/Lot/CreateLot")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -242,7 +243,56 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
 
             lotRepository.CreateLots(lot);
 
-            return Ok("Successfully created");
+            return Created();
+
+        }
+
+        [HttpPost("/Lot/CreateLots")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Authorize]
+        public IActionResult CreateLots([FromBody] CreateLotsDTO lotsDTO)
+        {
+            var parkinglot = parking_Lot_StructursRepository.Getparking_Lot_StructurByID(lotsDTO.Structur_ID);
+
+            var OrganisationId = User.FindFirst("OrganisationId")?.Value;
+
+            if (parkinglot.OrganisationId != int.Parse(OrganisationId))
+            {
+                return StatusCode(403, "Permission denied");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //for (int j = 0; j < lotsDTO.Length; j++)
+            //{
+                int preExistingAmount = lotRepository.CountLotsByStructureIdAndStartingLetter(parkinglot.Parking_lot_Structur_ID, lotsDTO.Areaname);
+                for (int i = 0+preExistingAmount; i < lotsDTO.amount+preExistingAmount; i++)
+                {
+                    var temp = i+1;
+                    Lot lot = new Lot
+                    {
+                        LotID = 0,
+                        LotName = lotsDTO.Areaname+temp.ToString(),
+                        Occupied_Status = false,
+                        Structur_ID = lotsDTO.Structur_ID,
+                        Lot_types_ID = lotsDTO.lottypes,
+                    };
+
+                    lotRepository.CreateLots(lot);
+                    parkinglot.Total_Available_Lots++;
+
+                }
+            //}
+
+            parking_Lot_StructursRepository.Updateparking_Lot_Structur(parkinglot, parkinglot);
+
+
+
+            return Created();
 
         }
 
@@ -270,7 +320,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
             }
 
             lotRepository.UpdateLots(lot);
-            return Ok("Lot Successfully Updated");
+            return Created();
         }
 
         [HttpDelete("/Lot/delete{LotID}")]

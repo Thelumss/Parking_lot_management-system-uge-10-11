@@ -48,11 +48,38 @@
     </tbody>
   </table>
 
-  <!-- Pagination Controls -->
-  <div class="pagination mt-4">
-    <button *ngFor="let page of [].constructor(totalPages); let pageIndex = index" (click)="goToPage(pageIndex + 1)"
-      [class.active]="currentPage === pageIndex + 1" class="page-button">
-      {{ pageIndex + 1 }}
-    </button>
-  </div>
+<div class="pagination mt-4">
+
+  <!-- Prev -->
+  <button 
+    class="page-button"
+    [class.disabled]="currentPage === 1"
+    (click)="goToPage(currentPage - 1)"
+    [disabled]="currentPage === 1">
+    ‹ Prev
+  </button>
+
+  <!-- Smart Dynamic Buttons -->
+  <button 
+    *ngFor="let page of paginationButtons"
+    class="page-button"
+    [class.active]="page === currentPage"
+    (click)="page !== '...' && goToPage(page)"
+    [disabled]="page === '...'">
+
+    {{ page }}
+
+  </button>
+
+  <!-- Next -->
+  <button 
+    class="page-button"
+    [class.disabled]="currentPage === totalPages"
+    (click)="goToPage(currentPage + 1)"
+    [disabled]="currentPage === totalPages">
+    Next ›
+  </button>
+
+</div>
+
 </div>

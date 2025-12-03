@@ -1,12 +1,14 @@
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LotService } from '../../../Services/lot-service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { DynamicTableComponet } from "../../Shared/dynamic-table-componet/dynamic-table-componet";
+import { EditDialog } from '../../edit-dialog/edit-dialog';
+import { Parking_strutur } from '../parking-structurcomponent/parking-structurcomponent';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface Lot {
   lotID: number;
@@ -14,6 +16,13 @@ export interface Lot {
   occupied_Status: boolean;
   structur_ID: number;
   lot_types_ID: number;
+}
+export interface lotdto {
+  Areaname: string;
+  amount: number;
+  Structur_ID: number;
+  lottypes: number;
+
 }
 
 @Component({
@@ -24,16 +33,21 @@ export interface Lot {
   styleUrl: './lotcomponent.css',
 })
 export class Lotcomponent {
-  lotId: number = 0;
+  ParkingLotStrucurID: number = 0;
 
-    displayedColumns = [
-    {key: 'lotName', label: 'Lot name'},
-    {key: 'occupied_Status', label: 'Occupied Status'},
-    {key: 'structur_ID', label: 'Structur name'},
-    {key: 'lot_types_ID', label: 'lot types name'},
+  displayedColumns = [
+    { key: 'lotName', label: 'Lot name' },
+    { key: 'occupied_Status', label: 'Occupied Status' },
+    { key: 'structur_ID', label: 'Structur name' },
+    { key: 'lot_types_ID', label: 'lot types name' },
+  ];
+  CreaeteLotsColumns = [
+    { key: 'Areaname', label: 'Areaname/Floorname' },
+    { key: 'amount', label: 'Amount' },
+    { key: 'lot_types_ID', label: 'Lot types name' },
   ];
 
-  constructor(private api: LotService, private route: ActivatedRoute) { }
+  constructor(private api: LotService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   @Input() columns: string[] = [];
   @Input() data: Lot[] = [];
@@ -41,17 +55,54 @@ export class Lotcomponent {
 
   ngAfterViewInit() {
     this.route.params.subscribe(params => {
-      this.lotId = +params['id'];  // '+' converts the string to a number
-      this.loadParkingLotStrucurs();
+      this.ParkingLotStrucurID = +params['id'];  // '+' converts the string to a number
+      this.loadLotsParkingLotStrucur();
     });
   }
 
-  loadParkingLotStrucurs() {
-    this.api.getLots(this.lotId).subscribe({
+  loadLotsParkingLotStrucur() {
+    this.api.getLots(this.ParkingLotStrucurID).subscribe({
       next: res => {
         this.data = res;
       },
       error: err => console.error('API error:', err)
+    });
+  }
+  onCreate() {
+    const dialogRef = this.dialog.open(EditDialog, {
+      width: '600px',
+      maxWidth: '90vw',
+      height: 'auto',
+      maxHeight: '90vh',
+      data: {
+        row: {
+          Areaname: '',
+          lotName: '',
+          amount: 0,
+          structur_ID: this.ParkingLotStrucurID,
+          lot_types_ID: 0
+        },
+        columns: this.CreaeteLotsColumns,
+        title: 'Create',
+        isNew: true
+      },
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const lotdto: lotdto = {
+          Areaname: result.Areaname,
+          amount: result.amount,
+          Structur_ID: this.ParkingLotStrucurID,
+          lottypes: result.lot_types_ID
+
+        };
+
+        this.api.Create_Lots(lotdto).subscribe(() => {
+        this.loadLotsParkingLotStrucur();
+        });
+      }
     });
   }
 }

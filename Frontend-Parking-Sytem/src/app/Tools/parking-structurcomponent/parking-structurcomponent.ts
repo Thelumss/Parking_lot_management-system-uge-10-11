@@ -93,7 +93,7 @@ export class ParkingStructurcomponent {
 
   }
 
-  onCreate(defaultName: string = '') {
+  onCreate() {
   const dialogRef = this.dialog.open(EditDialog, {
     width: '600px',
     maxWidth: '90vw',

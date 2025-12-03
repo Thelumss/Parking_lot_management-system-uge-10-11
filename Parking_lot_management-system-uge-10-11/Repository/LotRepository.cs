@@ -11,6 +11,15 @@ namespace Parking_lot_management_system_uge_10_11.Repository
         {
             this.context = context;
         }
+
+        public int CountLotsByStructureIdAndStartingLetter(int parking_Lot_StructurID, string startsWithLetter)
+        {
+            return context.lots
+        .Where(x => x.Structur_ID == parking_Lot_StructurID
+                 && x.LotName.StartsWith(startsWithLetter))
+        .Count();
+        }
+
         public bool CreateLots(Lot lot)
         {
             context.lots.Add(lot);
@@ -70,7 +79,7 @@ namespace Parking_lot_management_system_uge_10_11.Repository
 
         public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_StatusAndLotname(int parking_Lot_StructurID, int lottypeID, bool occupie_status, string lotName)
         {
-            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.Occupied_Status == occupie_status)&&(x.LotName ==lotName)).ToList();
+            return context.lots.Where(x => (x.Structur_ID == parking_Lot_StructurID) && (x.Lot_types_ID == lottypeID) && (x.Occupied_Status == occupie_status) && (x.LotName == lotName)).ToList();
         }
 
         public bool LotsExist(int id)

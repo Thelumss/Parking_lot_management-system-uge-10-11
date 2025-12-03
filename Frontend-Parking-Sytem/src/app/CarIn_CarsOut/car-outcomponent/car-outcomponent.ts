@@ -33,7 +33,6 @@ export class CarOutcomponent {
     this.carin.carsout(+this.parkingStructureId, this.numberPlate)
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.resetForm();
           this.showTempMessage('Car successfully checked out ✅ the price is '+res.price.toLocaleString('da-DK', { minimumFractionDigits: 2 })+" kr", true);
         },

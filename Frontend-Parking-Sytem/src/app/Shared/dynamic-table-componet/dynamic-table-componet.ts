@@ -1,11 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-table-componet',
-  imports: [NgFor, FormsModule, NgIf],
+  imports: [NgFor, FormsModule, NgIf,MatPaginatorModule],
   templateUrl: './dynamic-table-componet.html',
   styleUrl: './dynamic-table-componet.css',
 })
@@ -96,9 +97,18 @@ onEdit(row: any) {
   });
 }
 
-  onDelete(row: any) {
-    this.deleteRow.emit(row);  // Emit the row data to parent component
+onDelete(row: any) {
+  // Remove the row from the local data
+  this.data = this.data.filter(r => r !== row);
+
+  // Emit the deleted row to parent if needed
+  this.deleteRow.emit(row);
+
+  // Adjust current page if needed
+  if (this.currentPage > this.totalPages) {
+    this.currentPage = this.totalPages || 1;
   }
+}
 
   onRowDoubleClick(row: any) {
     this.rowDoubleClicked.emit(row);  // This emits the row data to the parent component
@@ -108,4 +118,33 @@ onEdit(row: any) {
   goToPage(page: number) {
     this.currentPage = page;
   }
+
+  get paginationButtons() {
+  const total = this.totalPages;
+  const current = this.currentPage;
+  const delta = 2; // how many pages to show around current
+  let pages: any[] = [];
+
+  pages.push(1);
+
+  if (current - delta > 2) {
+    pages.push("...");
+  }
+
+  // Middle pages
+  for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+    pages.push(i);
+  }
+
+  if (current + delta < total - 1) {
+    pages.push("...");
+  }
+
+  if (total > 1) {
+    pages.push(total);
+  }
+
+  return pages;
+}
+
 }
