@@ -20,10 +20,13 @@ RUN npm install
 ```
 run ng serve --open
 ```
+to start the frontend and open the window in the browser
 or 
 ```
 run ng serve
 ```
+to simpley start the frontend
+to start the b
 ## Help
 
 We don't have any help files for this project yet.
