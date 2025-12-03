@@ -17,12 +17,17 @@ export interface Lot {
   structur_ID: number;
   lot_types_ID: number;
 }
-export interface lotdto {
+export interface Createlotdto {
   Areaname: string;
   amount: number;
   Structur_ID: number;
   lottypes: number;
-
+}
+export interface readlotDTO{
+  lotName: string;
+  occupiedStatus: boolean;
+  parkingLotStructurName: string;
+  lotTypeName: string;
 }
 
 @Component({
@@ -37,9 +42,9 @@ export class Lotcomponent {
 
   displayedColumns = [
     { key: 'lotName', label: 'Lot name' },
-    { key: 'occupied_Status', label: 'Occupied Status' },
-    { key: 'structur_ID', label: 'Structur name' },
-    { key: 'lot_types_ID', label: 'lot types name' },
+    { key: 'occupiedStatus', label: 'Occupied' },
+    { key: 'parkingLotStructurName', label: 'Structur name' },
+    { key: 'lotTypeName', label: 'lot types name' },
   ];
   CreaeteLotsColumns = [
     { key: 'Areaname', label: 'Areaname/Floorname' },
@@ -63,7 +68,12 @@ export class Lotcomponent {
   loadLotsParkingLotStrucur() {
     this.api.getLots(this.ParkingLotStrucurID).subscribe({
       next: res => {
-        this.data = res;
+        this.data = res.map((lot: readlotDTO) =>{
+          return {
+            ...lot,
+            occupiedStatus: lot.occupiedStatus ? 'Yes' : 'No',
+          }
+        });
       },
       error: err => console.error('API error:', err)
     });
@@ -91,7 +101,7 @@ export class Lotcomponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const lotdto: lotdto= {
+        const lotdto: Createlotdto= {
           Areaname: result.Areaname,
           amount: result.amount,
           Structur_ID: this.ParkingLotStrucurID,

@@ -1,4 +1,5 @@
-﻿using Parking_lot_management_system_uge_10_11.Models;
+﻿using Parking_lot_management_system_uge_10_11.DTO;
+using Parking_lot_management_system_uge_10_11.Models;
 
 namespace Parking_lot_management_system_uge_10_11.Interface
 {
@@ -14,6 +15,7 @@ namespace Parking_lot_management_system_uge_10_11.Interface
         bool UpdateLots(Lot lot);
         bool save();
 
+        ICollection<ReadlotDTO> GetLotByParking_Lot_StructurId(int parking_Lot_StructurID);
         ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeID(int parking_Lot_StructurID,int lottypeID);
         ICollection<Lot> GetLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(int parking_Lot_StructurID, int lottypeID,bool occupie_status);
         Lot GetFirstBestLotByparking_Lot_StructurIdAndLottypeIDAndOccupie_Status(int parking_Lot_StructurID, int lottypeID, bool occupie_status);

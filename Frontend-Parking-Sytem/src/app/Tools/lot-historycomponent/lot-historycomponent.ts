@@ -13,6 +13,8 @@ export interface LotHistory {
   exit_time: number;
   charged: number;
   active: string;
+  parking_Lot_Structur_Name: string;
+  lot_Type: string
 
 }
 
@@ -34,6 +36,8 @@ export class LotHistorycomponent {
     { key: 'entry_time', label: 'Entry time' },
     { key: 'exit_time', label: 'Exit time' },
     { key: 'charged', label: 'Charged' },
+    { key: 'parking_Lot_Structur_Name', label: 'Parking lot structur name' },
+    { key: 'lot_Type', label: 'Lot type' },
     { key: 'active', label: 'Active' },
   ];
 

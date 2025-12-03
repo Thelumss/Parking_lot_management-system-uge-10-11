@@ -1,4 +1,5 @@
 ﻿using Parking_lot_management_system_uge_10_11.Data;
+using Parking_lot_management_system_uge_10_11.DTO;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 
@@ -55,6 +56,20 @@ namespace Parking_lot_management_system_uge_10_11.Repository
         public ICollection<Lot> GetLotByparking_Lot_StructurId(int parking_Lot_StructurID)
         {
             return context.lots.Where(x => x.Structur_ID == parking_Lot_StructurID).ToList();
+        }
+
+        public ICollection<ReadlotDTO> GetLotByParking_Lot_StructurId(int parking_Lot_StructurID)
+        {
+            return context.lots
+        .Where(x => x.Structur_ID == parking_Lot_StructurID)
+        .Select(l => new ReadlotDTO
+        {
+            LotName = l.LotName,
+            OccupiedStatus = l.Occupied_Status,
+            ParkingLotStructurName = l.Parking_Lot_Structur.Name,
+            LotTypeName = l.Lot_types.Type
+        })
+        .ToList();
         }
 
         public ICollection<Lot> GetLotByparking_Lot_StructurIdAndLotName(int parking_Lot_StructurID, string lotName)

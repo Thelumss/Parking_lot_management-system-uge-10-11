@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Parking_lot_management_system_uge_10_11.Data;
+using Parking_lot_management_system_uge_10_11.DTO;
 using Parking_lot_management_system_uge_10_11.Interface;
 using Parking_lot_management_system_uge_10_11.Models;
 
@@ -29,16 +30,25 @@ namespace Parking_lot_management_system_uge_10_11.Repository
             return context.lot_Histories.OrderBy(x => x.Lot_History_ID).ToList();
         }
 
-        public ICollection<Lot_History> GetLot_HistoryByOrganisationId(int OrganisationId)
+        public ICollection<LotHistoryDto> GetLot_HistoryByOrganisationId(int OrganisationId)
         {
             return context.lot_Histories
                 .Include(h => h.Lot)
                     .ThenInclude(l => l.Parking_Lot_Structur)
-                .Where(h =>
-                    h.Lot.Parking_Lot_Structur.OrganisationId == OrganisationId
-                    )
-                    .ToList();
+                .Where(h => h.Lot.Parking_Lot_Structur.OrganisationId == OrganisationId)
+                .Select(h => new LotHistoryDto
+                {
+                    License_PLate_Numbers = h.License_PLate_Numbers,
+                    Entry_time = h.Entry_time,
+                    Exit_time = h.Exit_time,
+                    Charged = h.Charged,
+                    Active = h.active,
+                    Parking_Lot_Structur_Name = h.Lot.Parking_Lot_Structur.Name,
+                    Lot_Type = h.Lot.Lot_types.Type
+                })
+                .ToList();
         }
+
 
 
         public Lot_History GetLot_HistoryByID(int id)

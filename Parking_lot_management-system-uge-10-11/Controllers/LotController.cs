@@ -47,7 +47,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
         }
 
         [HttpGet("/Lot/byparking_Lot_Structur{parking_Lot_StructurId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Lot>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ReadlotDTO>))]
         [ProducesResponseType(400)]
         [Authorize]
         public IActionResult GetLotsbyOrganisation(int parking_Lot_StructurId)
@@ -61,7 +61,7 @@ namespace Parking_lot_management_system_uge_10_11.Controllers
                 return StatusCode(403, "Permission denied");
             }
 
-            var lot = lotRepository.GetLotByparking_Lot_StructurId(parking_Lot_StructurId);
+            var lot = lotRepository.GetLotByParking_Lot_StructurId(parking_Lot_StructurId);
 
 
             if (!ModelState.IsValid)
