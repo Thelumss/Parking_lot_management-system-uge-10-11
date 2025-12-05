@@ -133,9 +133,9 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
   }
 
   decodeToken(token: string) {
-  const payload = token.split('.')[1];
-  const decodedPayload = atob(payload);
-  return JSON.parse(decodedPayload);
-}
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    return JSON.parse(decodedPayload);
+  }
 
 }

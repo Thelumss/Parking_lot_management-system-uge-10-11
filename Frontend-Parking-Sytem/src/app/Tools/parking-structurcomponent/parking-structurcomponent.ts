@@ -39,7 +39,7 @@ export class ParkingStructurcomponent {
     { key: 'total_Occupied_Lots', label: 'Total occupied lots', readonly: true },
     { key: 'basePrice', label: 'BasePrice', readonly: false },
   ];
-  
+
   products: any[] = [];
 
   @ViewChild(DynamicTableComponet) dynamicTable!: DynamicTableComponet;
@@ -60,16 +60,16 @@ export class ParkingStructurcomponent {
 
   onEdit(row: any) {
     const dialogRef = this.dialog.open(EditDialog, {
-      width: '600px',      // wider so fields fit
-      maxWidth: '90vw',    // responsive on small screens
-      height: 'auto',      // height adjusts automatically
-      maxHeight: '90vh',   // don't overflow the viewport
+      width: '600px',   
+      maxWidth: '90vw', 
+      height: 'auto',   
+      maxHeight: '90vh',
       data: {
         row: row,
         columns: this.displayedColumns,
         title: 'Edit Entry',
       },
-      panelClass: 'custom-dialog-container' // optional custom CSS class
+      panelClass: 'custom-dialog-container'
     });
 
     dialogRef.afterClosed().subscribe(result => {
