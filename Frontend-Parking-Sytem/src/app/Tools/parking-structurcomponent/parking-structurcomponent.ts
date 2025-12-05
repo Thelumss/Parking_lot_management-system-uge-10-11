@@ -38,10 +38,8 @@ export class ParkingStructurcomponent {
     { key: 'total_Available_Lots', label: 'Total available lots', readonly: true },
     { key: 'total_Occupied_Lots', label: 'Total occupied lots', readonly: true },
     { key: 'basePrice', label: 'BasePrice', readonly: false },
-
   ];
-
-
+  
   products: any[] = [];
 
   @ViewChild(DynamicTableComponet) dynamicTable!: DynamicTableComponet;

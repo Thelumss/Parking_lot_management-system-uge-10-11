@@ -120,8 +120,8 @@ namespace Parking_lot_management_system_uge_10_11.Models
                 {
                     context.AddRange(new Parking_Lot_Structur
                     {
-                        Name = "rosegarden lots",
-                        Adress = "smoethingstreet",
+                        Name = "Park & Go Facility",
+                        Adress = "Engtoftevej 5",
                         BasePrice = 200,
                         Total_Available_Lots = 200,
                         Total_Occupied_Lots = 0,
@@ -131,8 +131,8 @@ namespace Parking_lot_management_system_uge_10_11.Models
 
                     context.AddRange(new Parking_Lot_Structur
                     {
-                        Name = "city garage A",
-                        Adress = "smoethingstreet",
+                        Name = "Central Parking Garage",
+                        Adress = "Fjordvænget 24",
                         BasePrice = 200,
                         Total_Available_Lots = 100,
                         Total_Occupied_Lots = 0,
@@ -141,8 +141,8 @@ namespace Parking_lot_management_system_uge_10_11.Models
                     });
                     context.AddRange(new Parking_Lot_Structur
                     {
-                        Name = "city garage B",
-                        Adress = "smoethingstreet",
+                        Name = "Surface Parking Lot ",
+                        Adress = "Havnegade 31",
                         BasePrice = 200,
                         Total_Available_Lots = 50,
                         Total_Occupied_Lots = 0,

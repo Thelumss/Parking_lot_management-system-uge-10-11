@@ -10,6 +10,13 @@ export interface Users {
   userID: number;
   name: string;
 }
+export interface CreateUsers{
+  name: string;
+  password: string;
+  email: string;
+  userTypeID: number;
+  organisationId: number;
+}
 
 
 @Component({
@@ -46,15 +53,27 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
 
   // CreateNewUser creates a user by caling the CreateNewUser function on adminService that makes a API call
   CreateNewUser() {
+    const token = localStorage.getItem('JWT_Token');
+    var decoded;
+    if(token != null){
+      decoded = this.decodeToken(token)
+    }
+
+    const CreateUsers: CreateUsers = {
+      name: this.createAdminForm.get('name')?.value,
+      password: this.createAdminForm.get('password')?.value,
+      email: this.createAdminForm.get('email')?.value,
+      userTypeID: decoded.userTypeID,
+      organisationId: decoded.organisationId
+    };
+    
     // for API it gets the values from createAdminForm
-    (this.authService.createUser(this.createAdminForm.value)).subscribe(() => {
+    (this.authService.createUser(CreateUsers)).subscribe(() => {
       this.createAdminForm.reset();
     });
 
     this.tableRefresh();
   }
-
-
   // ngOnInit does things on init
   ngOnInit(): void {
     // calls the createFrom funtion
@@ -105,8 +124,6 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
       name: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required]),
-      userTypeID: new FormControl('', Validators.required),
-      organisationId: new FormControl('', [Validators.required]),
     });
   }
 
@@ -115,5 +132,10 @@ export class UsersUserscomponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  decodeToken(token: string) {
+  const payload = token.split('.')[1];
+  const decodedPayload = atob(payload);
+  return JSON.parse(decodedPayload);
+}
 
 }
